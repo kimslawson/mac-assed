@@ -155,6 +155,30 @@ MATable(…) { … }.maChrome(.aqua)       // early Mac OS X
 ```
 Restores: **§15**.
 
+## Spatial — `MASpatial` *(roadmap · v0.3)*
+
+The spatial Finder, recovered — window place memory and icon-position memory,
+the way John Siracusa always wanted it.
+
+```swift
+// Opt an app into the spatial window model at the scene level:
+WindowGroup(for: Folder.ID.self) { $id in FolderView(id) }
+    .spatial()   // one window per folder · frame-per-folder memory · bring-forward
+
+// The icon view where positions stick:
+MASpatialView(items, selection: $sel, layout: $layout) { IconCell($0) }
+    .spatialAutosave("Projects")
+    // new items → first free slot; hand-placed icons never re-flow; marquee via MASelection
+
+// The escape hatches (View ▸ and context menu), via MASpatialCommands:
+//   Clean Up · Clean Up Selection · Arrange By ▸ · Keep Arranged By ▸ · Reset Layout
+```
+
+Behavior is `MASpatialLayout` in `MacAssedCore` — `Codable` positions + grid,
+with `cleanUp()`, `arrange(order:)`, and a snapshot so **Reset Layout** can undo
+an Arrange. Icon positions are content-relative and so display-independent.
+Restores: **§17**.
+
 ---
 
 ## On the roadmap

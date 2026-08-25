@@ -117,8 +117,10 @@ Versioned by usefulness, not completeness. Each milestone is shippable.
   `.maTypeSelect`. This is the Gruber complaint, closed.
 - **v0.2 — Manipulation.** `MAContextMenu` (selection-aware), `.maQuickLook`,
   `.maCopyAsTSV`, `.maFindBar`, `MAStatusBar`.
-- **v0.3 — Structure.** `MAOutline` (expand-all, persisted), `MADrag`
-  (insertion lines, spring-loading), `MASidebar` badges.
+- **v0.3 — Structure & space.** `MASpatial` — the spatial Finder: window place
+  memory + icon-position memory (`MASpatialView`), with Clean Up / Arrange By /
+  Reset Layout. Then `MAOutline` (expand-all, persisted), `MADrag` (insertion
+  lines, spring-loading), `MASidebar` badges.
 - **v0.4 — Windows.** `.maCustomizableToolbar`, `MAInspector`/Get Info,
   `MAPanel`, proxy icons, `MADialog` defaults.
 - **v0.5+ — Text & undo.** `MATokenField`, `MAComboBox`, `MAField` editor
@@ -158,5 +160,8 @@ Worth deciding in the open, with the community:
    of its own (a non-goal)?
 5. **Minimum OS.** v0.1 targets macOS 14 for `.onKeyPress` and column
    customization. Is a macOS 13 back-deployment worth the bridge complexity?
+6. **Spatial's blast radius.** How much should one `.spatial()` turn on — window
+   reuse, frame memory, *and* the icon canvas — vs. each as its own opt-in? And
+   how hard should multi-display window restoration try before it clamps?
 
 Have an opinion? That's what [CONTRIBUTING.md](CONTRIBUTING.md) is for.

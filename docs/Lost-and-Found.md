@@ -182,14 +182,42 @@ restores ships with:
 - 🥾 **VoiceOver labels & traits** on restored controls, so a sortable header
   announces itself as one.
 
+## 17 · Spatial memory *(the deepest cut)*
+
+If §16 is the floor, this is the ceiling. The classic Mac Finder was *spatial*:
+one window per folder, each window reopening exactly where and how you left it,
+and — in icon view — every icon staying precisely where you put it. You
+navigated by muscle memory, because a place was a *place*. John Siracusa has made
+the case for it at length and for decades (*About the Finder…*, 2003); Mac OS X's
+navigational Finder threw most of it away.
+
+- 🔦 **Window place memory** — a folder reopens at the same size and spot every
+  time; opening it again brings that window forward instead of spawning a
+  duplicate. → `MASpatial` / `.spatial()`
+- 🔦 **Icon position memory** — drop an icon and it *stays*. New items land in the
+  first free grid slot; hand-placed icons never re-flow. Positions are content-
+  relative, so this half is **display-independent** — it survives monitor
+  changes untouched. → `MASpatialView`
+- 🔦 **Clean Up · Arrange By · Keep Arranged** — the classic escape hatches for a
+  layout gone messy, plus a **Reset Layout** that undoes an Arrange, because a
+  hand-placed layout is precious and shouldn't be destroyed without a way back. → `MASpatialCommands`
+
+**Default or option?** Option — native by default, nostalgic by choice, and
+spatial mode is a philosophy you opt into with `.spatial()`. Window-frame memory
+is safe enough to default on; icon memory is the default *within* the spatial
+view (choosing it is the opt-in). Multi-display window placement restores exactly
+when the display is present and clamps safely onto the main display when it isn't
+— imperfect, never lossy.
+
 ---
 
 ## What we're *not* trying to recover
 
 Some things were left behind on purpose, and MacAssed doesn't relitigate them:
-spatial-Finder window sprawl, the Classic control panel maze, forcing every app
-into a document model, or reflexive skeuomorphism. The test for the drawer isn't
-"was it old," it's **"did a real task get harder when it went."**
+spatial mode *forced on by default* (a gorgeous option — see §17 — not a
+mandate), the Classic control panel maze, forcing every app into a document
+model, or reflexive skeuomorphism. The test for the drawer isn't "was it old,"
+it's **"did a real task get harder when it went."**
 
 ## Something missing from the drawer?
 
