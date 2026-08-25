@@ -90,6 +90,22 @@ moment the UI conventions did. So MacAssed brings the prefix back: `MATable`,
 *module* is `MacAssed`; the *types* are `MA…` — exactly `Foundation`'s
 relationship to its `NS…` types.)
 
+## Naming conventions
+
+Swift casing splits names into **types** (nouns) and **members** (the things you
+do to them). The `MA` prefix follows along — uppercase on a type, lowercase on a
+method. The leading dot is call syntax (`view.padding()`), not part of the name.
+
+| You write | What it is | Case rule |
+|---|---|---|
+| `MATable`, `MASort` | a **type** (a thing) | UpperCamelCase → prefix shows as `MA` |
+| `.maTypeSelect(…)` | a **modifier** on Apple's `View` | lowerCamelCase → `ma`; dot calls it on the view |
+| `.columnAutosave(…)` | a **method on `MATable`** | lowerCamelCase, no prefix — the type already namespaces it |
+| `.platinum`, `.trailing` | an **enum case** (a fixed option) | lowerCamelCase; dot = the option, on the inferred type |
+
+Same grammar Apple uses: `NSString` / `UIView` are Upper with the prefix; their
+members (`view.backgroundColor`) are lower.
+
 ## Contributing
 
 The catalog is meant to grow with the community — a foundation that lives and
