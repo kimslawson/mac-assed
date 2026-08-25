@@ -28,7 +28,7 @@ final class MASortTests: XCTestCase {
         var sort = MASort<File>()
         sort.setPrimary(.finder("name", "Name", \.name))
         let ordered = files.sorted(by: sort).map(\.name)
-        // The whole point: "Photo 2" before "Photo 10", not lexicographically after.
+        // The whole point: “Photo 2” before “Photo 10”, not lexicographically after.
         XCTAssertEqual(ordered, ["Photo 1.png", "Photo 2.png", "Photo 10.png"])
     }
 

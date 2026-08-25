@@ -5,7 +5,7 @@
 //  │ Design proposal. See docs/Tools.md § MASelection.                     │
 //  └───────────────────────────────────────────────────────────────────────┘
 //
-//  LOST: the full mouse+keyboard selection grammar every Mac user's fingers
+//  LOST: the full mouse+keyboard selection grammar every Mac user’s fingers
 //  already know —
 //
 //      click             → select one, set the anchor
@@ -15,7 +15,7 @@
 //      ↑ ↓  (⇧ extends)  → keyboard range selection
 //      marquee drag       → rubber-band selection
 //
-//  SwiftUI's `Set<ID>` binding gives you the storage but none of the grammar:
+//  SwiftUI’s `Set<ID>` binding gives you the storage but none of the grammar:
 //  no anchor, no ⇧-range on a `List`, no marquee, no invert.
 //
 //  FOUND: `MASelection` — the UI-free brain. The SwiftUI layer feeds it

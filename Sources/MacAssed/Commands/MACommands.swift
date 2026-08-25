@@ -5,8 +5,8 @@
 //  │ Design proposal. See docs/Tools.md § MACommands.                      │
 //  └───────────────────────────────────────────────────────────────────────┘
 //
-//  LOST: menu-bar completeness. A mac-assed app has a View menu with "Sort By
-//  ▸", a real Edit menu (Select All, Invert Selection), and ⌘-equivalents for
+//  LOST: menu-bar completeness. A mac-assed app has a View menu with “Sort By
+//  ▸”, a real Edit menu (Select All, Invert Selection), and ⌘-equivalents for
 //  all of it. SwiftUI makes the menu bar so easy that people ship apps missing
 //  half of it.
 //
@@ -54,7 +54,7 @@ struct MAColumnVisibilityCommands: View { var body: some View { EmptyView() } }
 public extension View {
     /// A ⌘F Find bar that live-filters the collection below it — the classic
     /// slide-down find bar, not a modal sheet. `scopes` recreates the old
-    /// scope-bar buttons ("All / Name / Contents").
+    /// scope-bar buttons (“All / Name / Contents”).
     func maFindBar<Scope: Hashable>(
         text: Binding<String>, scopes: [(Scope, String)] = [], scope: Binding<Scope>? = nil
     ) -> some View { modifier(MAFindBar(text: text)) }

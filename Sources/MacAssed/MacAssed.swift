@@ -7,20 +7,20 @@
 //  minimalist interfaces have misplaced. Welcome to the Lost & Found.
 //
 //  ── On the name ──────────────────────────────────────────────────────────
-//  A "Mac-assed Mac app" is a running term of art among Mac developers — an app
-//  that wholeheartedly embraces the platform's conventions instead of settling
+//  A “Mac-assed Mac app” is a running term of art among Mac developers — an app
+//  that wholeheartedly embraces the platform’s conventions instead of settling
 //  for a lowest-common-denominator port. Coined by Collin Donnell, popularized
 //  by Brent Simmons, and used recurrently by John Gruber since 2020 (he calls
-//  Safari "one of the best Mac apps, period" for embodying it). It surfaced
+//  Safari “one of the best Mac apps, period” for embodying it). It surfaced
 //  again in the 2026 TestFlight-sort-order piece that kicked this project off:
 //
-//      "You can still do this in Mac-assed Mac apps. But in apps like
-//       TestFlight you can't."   — Daring Fireball, Aug 2026
+//      “You can still do this in Mac-assed Mac apps. But in apps like
+//       TestFlight you can’t.”   — Daring Fireball, Aug 2026
 //
 //  ── On the MA prefix (a small joke that means it) ────────────────────────
 //  Old Apple frameworks prefixed types with two/three letters — NS, UI, CG, AV,
-//  MK — because Objective-C had no namespaces. Swift's module namespacing made
-//  that "unnecessary," and the prefixes went away in the same cultural moment
+//  MK — because Objective-C had no namespaces. Swift’s module namespacing made
+//  that “unnecessary,” and the prefixes went away in the same cultural moment
 //  the UI conventions did. So MacAssed brings the prefix back: `MATable`,
 //  `MASortDescriptor`, `MASelection`. The branding does the thing the library
 //  does — recovers a good convention that got dropped for looking old-fashioned.

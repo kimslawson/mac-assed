@@ -3,13 +3,13 @@
 //
 //  ┌─ API SKETCH ─────────────────────────────────────────────────────────┐
 //  │ Design proposal. See docs/Tools.md § MASpatial and                    │
-//  │ docs/Lost-and-Found.md § 17 "Spatial memory".                         │
+//  │ docs/Lost-and-Found.md § 17 “Spatial memory”.                         │
 //  └───────────────────────────────────────────────────────────────────────┘
 //
 //  LOST: the spatial Finder. One window per folder, each reopening where you
 //  left it; every icon staying exactly where you put it. You navigated by
 //  muscle memory, because a place was a *place*. John Siracusa argued the case
-//  for decades ("About the Finder…", 2003); Mac OS X's navigational Finder
+//  for decades (“About the Finder…”, 2003); Mac OS X’s navigational Finder
 //  threw most of it away.
 //
 //  FOUND: `MASpatialLayout` — the UI-free, `Codable` model of a spatial view.
@@ -21,8 +21,8 @@
 
 import Foundation
 
-/// A point in a spatial view's content space. A small `Codable` value type so
-/// Core stays testable anywhere (no reliance on CGPoint's platform conformances).
+/// A point in a spatial view’s content space. A small `Codable` value type so
+/// Core stays testable anywhere (no reliance on CGPoint’s platform conformances).
 public struct MAPoint: Codable, Equatable, Sendable {
     public var x: Double
     public var y: Double
@@ -46,7 +46,7 @@ public struct MAGrid: Codable, Equatable, Sendable {
         return MAPoint(x: inset + Double(c) * cell, y: inset + Double(r) * cell)
     }
 
-    /// Nearest slot origin to an arbitrary point — the math behind "Clean Up".
+    /// Nearest slot origin to an arbitrary point — the math behind “Clean Up”.
     public func snap(_ p: MAPoint) -> MAPoint {
         let c = ((p.x - inset) / cell).rounded()
         let r = ((p.y - inset) / cell).rounded()
@@ -67,10 +67,10 @@ public struct MASpatialLayout: Codable, Equatable, Sendable {
     public var positions: [String: MAPoint]
     public var grid: MAGrid
     /// `nil` = free / hand-placed (true spatial). Non-nil = auto-arranged by a
-    /// field id ("Keep Arranged By ▸ Name").
+    /// field id (“Keep Arranged By ▸ Name”).
     public var keepArrangedBy: String?
-    /// The last hand-placed layout, captured before an Arrange, so "Reset
-    /// Layout" can bring it back. A hand-placed layout is precious.
+    /// The last hand-placed layout, captured before an Arrange, so “Reset
+    /// Layout” can bring it back. A hand-placed layout is precious.
     public var snapshot: [String: MAPoint]?
 
     public init(positions: [String: MAPoint] = [:], grid: MAGrid = MAGrid(),
@@ -93,7 +93,7 @@ public struct MASpatialLayout: Codable, Equatable, Sendable {
 
     // MARK: The clean-up kit (classic Finder canon)
 
-    /// "Clean Up" — snap everything (or just `ids`) to the grid, preserving the
+    /// “Clean Up” — snap everything (or just `ids`) to the grid, preserving the
     /// rough arrangement. Non-destructive: no reordering.
     public mutating func cleanUp(_ ids: Set<String>? = nil) {
         for (id, p) in positions where ids?.contains(id) ?? true {
@@ -101,7 +101,7 @@ public struct MASpatialLayout: Codable, Equatable, Sendable {
         }
     }
 
-    /// "Arrange By ▸" — reflow a sorted order into row-major slots. The caller
+    /// “Arrange By ▸” — reflow a sorted order into row-major slots. The caller
     /// sorts (via `MASort`) and passes the ordered ids, keeping Core decoupled
     /// from element types. Snapshots first so the hand-placed layout is
     /// recoverable.
@@ -110,7 +110,7 @@ public struct MASpatialLayout: Codable, Equatable, Sendable {
         for (i, id) in order.enumerated() { positions[id] = grid.point(forSlot: i) }
     }
 
-    /// "Reset Layout" / Undo Arrange — restore the last hand-placed layout.
+    /// “Reset Layout” / Undo Arrange — restore the last hand-placed layout.
     @discardableResult
     public mutating func restoreSnapshot() -> Bool {
         guard let s = snapshot else { return false }

@@ -1,7 +1,7 @@
 //
 //  MASpatialLayoutTests.swift  ·  MacAssedCoreTests
 //
-//  Spatial-Finder behavior, as executable expectations — and proof it's all
+//  Spatial-Finder behavior, as executable expectations — and proof it’s all
 //  UI-free: no window, no icon view, runs on any Swift host.
 //
 
@@ -21,7 +21,7 @@ final class MASpatialLayoutTests: XCTestCase {
     }
 
     func testPlacementNeverDisturbsHandPlacedIcons() {
-        var l = MASpatialLayout(positions: ["a": slot(2)])   // user dragged "a" to slot 2
+        var l = MASpatialLayout(positions: ["a": slot(2)])   // user dragged “a” to slot 2
         l.place("c")                                          // a new file appears
         XCTAssertEqual(l.positions["a"], slot(2))             // untouched
         XCTAssertEqual(l.positions["c"], slot(0))             // fills the first gap

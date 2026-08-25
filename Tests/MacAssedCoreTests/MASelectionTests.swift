@@ -23,7 +23,7 @@ final class MASelectionTests: XCTestCase {
         sel.select(2)
         sel.extend(to: 5)                 // ⇧-click
         XCTAssertEqual(sel.selected, [2, 3, 4, 5])
-        XCTAssertEqual(sel.anchor, 2)     // anchor pivots, doesn't move
+        XCTAssertEqual(sel.anchor, 2)     // anchor pivots, doesn’t move
     }
 
     func testAdditiveExtendPreservesDiscontiguousIslands() {

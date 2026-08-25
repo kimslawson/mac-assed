@@ -25,25 +25,25 @@ it back. Tools are sketched in [Tools.md](Tools.md); proof it works in
   `sortOrder`, but only `Table`, only macOS, and it never remembers. → `MASort`, `MATable`
 - 🥾 **Reversible sort** — click again to flip. Present in `Table`; absent
   everywhere a `List` is used, which is most apps. → `MATable`, `MAList`
-- 🔦 **Finder-style natural order** — "Photo 2" before "Photo 10", case- and
+- 🔦 **Finder-style natural order** — “Photo 2” before “Photo 10”, case- and
   diacritic-insensitive. SwiftUI sorts lexicographically, so `10` sorts before
   `2`. This is the single most-felt loss. → `MAFinderComparator`
-- 🔦 **Secondary / compound sort** — ⌥-click a second header: "by Size, then
-  Name." No SwiftUI equivalent. → `MASort` (primary → secondary → …)
+- 🔦 **Secondary / compound sort** — ⌥-click a second header: “by Size, then
+  Name.” No SwiftUI equivalent. → `MASort` (primary → secondary → …)
 - 🔦 **Persisted sort** — the list comes back sorted how you left it. → `MAViewState`
 - 🥾 **The sort indicator on custom headers** — the little triangle. `Table`
-  draws one; you can't get it on your own header row. → `MAColumnHeader`
+  draws one; you can’t get it on your own header row. → `MAColumnHeader`
 
 ## 2 · Selecting things
 
-- 🥾 **Multiple selection** — `Set<ID>` binding exists; the *grammar* doesn't. → `MASelection`
+- 🥾 **Multiple selection** — `Set<ID>` binding exists; the *grammar* doesn’t. → `MASelection`
 - 🔦 **⇧-click range** on a `List` — extend from an anchor. Works in `Table` on
   macOS, nowhere else. → `MASelection`
 - 🔦 **⌘-click discontiguous** toggle — pick row 2, 5, and 9. → `MASelection`
 - 🔦 **Marquee / rubber-band** — drag a rectangle across empty space. → `MASelection.marquee`
 - 🔦 **Invert Selection** — a Finder/Photoshop staple. Nowhere in SwiftUI. → `MASelection.invert`
 - 🥾 **Select All / Deselect All** — no menu items, no ⌘A wired by default. → `MACommands`
-- 🔦 **Type-select** — type "wed" to jump to *Wednesday*. AppKit did this for
+- 🔦 **Type-select** — type “wed” to jump to *Wednesday*. AppKit did this for
   free for 25 years. → `.maTypeSelect`
 
 ## 3 · The keyboard
@@ -64,9 +64,9 @@ it back. Tools are sketched in [Tools.md](Tools.md); proof it works in
 - 🥾 **Reordering** — drag a header. `TableColumnCustomization` (macOS 14+) can,
   clumsily; MacAssed makes it uniform and persistent. → `MAColumnLayout.move`
 - 🥾 **Show / hide** — right-click the header, check a column off. Partial in
-  `Table`; MacAssed adds the menu and the "Customize…" sheet. → `MAColumnLayout`
+  `Table`; MacAssed adds the menu and the “Customize…” sheet. → `MAColumnLayout`
 - 🔦 **Column autosave** — widths + order + visibility, remembered under a name,
-  forever, per user. AppKit's `autosaveName`, gone. → `MAViewState`
+  forever, per user. AppKit’s `autosaveName`, gone. → `MAViewState`
 - 🔦 **Frozen header / first column** on scroll. → `MATable`
 
 ## 5 · Menus & commands
@@ -74,10 +74,10 @@ it back. Tools are sketched in [Tools.md](Tools.md); proof it works in
 - 🥾 **Contextual (right-click) menus** — `.contextMenu` exists but is per-row
   and *forgets the selection* (right-click one of three selected rows and the
   menu acts on one). → `MAContextMenu` (selection-aware)
-- 🔦 **Secondary-click that reflects multi-selection** — "Delete 3 Items". → `MAContextMenu`
+- 🔦 **Secondary-click that reflects multi-selection** — “Delete 3 Items”. → `MAContextMenu`
 - 🥾 **A complete Edit menu** — Undo/Redo, Cut/Copy/Paste/Delete, Select All,
   Invert. SwiftUI ships the easy half. → `MACommands`
-- 🔦 **Named undo** — "Undo Rename", "Undo Move", with `NSUndoManager`
+- 🔦 **Named undo** — “Undo Rename”, “Undo Move”, with `NSUndoManager`
   semantics and mixed-state menu items (✓ / – ). → `MAUndo` *(roadmap)*
 - 🔦 **View ▸ Sort By ▸** and **View ▸ Columns ▸** menus with ⌘-equivalents. → `MACommands`
 - 🔦 **Services & Sharing** menu integration. → `MAServices` *(roadmap)*
@@ -87,10 +87,10 @@ it back. Tools are sketched in [Tools.md](Tools.md); proof it works in
 - 🥾 **Drag to reorder / into / out of** — `.draggable`/`.dropDestination` exist;
   reorder is hand-rolled every time and cross-app drags are rare. → `MADrag` *(roadmap)*
 - 🔦 **Insertion-line drop indicator** vs. container-highlight — the two distinct
-  "where will this land" cues. → `MADrag` *(roadmap)*
+  “where will this land” cues. → `MADrag` *(roadmap)*
 - 🔦 **Spring-loaded folders** — hover a folder mid-drag and it opens. Peak Mac.
   → `MADrag` *(roadmap)*
-- 🥾 **Quick Look** — `.quickLookPreview` exists but isn't bound to Space over a
+- 🥾 **Quick Look** — `.quickLookPreview` exists but isn’t bound to Space over a
   selection, with ←/→ to walk it. → `.maQuickLook`
 - 🔦 **Cursor rects & help tags** — I-beam / resize cursors, and a tooltip on
   truncated text so you can actually read it. → `MATooltip` *(roadmap)*
@@ -106,8 +106,8 @@ it back. Tools are sketched in [Tools.md](Tools.md); proof it works in
 
 - 🥾 **⌘F Find bar** — the slide-down, live-filtering bar over *your* data.
   `.searchable` is a search *field*, not this. → `.maFindBar`
-- 🔦 **Scope bar** — "All / Name / Contents" buttons. → `.maFindBar(scopes:)`
-- 🔦 **Result count & Find Next (⌘G)** — "3 of 12". → `.maFindBar`
+- 🔦 **Scope bar** — “All / Name / Contents” buttons. → `.maFindBar(scopes:)`
+- 🔦 **Result count & Find Next (⌘G)** — “3 of 12”. → `.maFindBar`
 - 🔦 **Filter tokens / smart-folder predicates**. → `MAFilter` *(roadmap)*
 
 ## 9 · Windows & documents
@@ -124,7 +124,7 @@ it back. Tools are sketched in [Tools.md](Tools.md); proof it works in
 
 ## 10 · Toolbars
 
-- 🔦 **User-customizable toolbar** — the "Customize Toolbar…" sheet, drag items
+- 🔦 **User-customizable toolbar** — the “Customize Toolbar…” sheet, drag items
   in and out. SwiftUI toolbars are developer-fixed. → `.maCustomizableToolbar`
 - 🔦 **Icon Only / Text Only / Icon & Text** modes + small size. → `.maCustomizableToolbar`
 - 🥾 **Overflow chevron** when the window narrows — SwiftUI does some of this;
@@ -134,14 +134,14 @@ it back. Tools are sketched in [Tools.md](Tools.md); proof it works in
 
 - 🥾 **Inspector pane** — `.inspector` exists (macOS 14). → `MAInspector`
 - 🔦 **Get Info (⌘I)** panel per item. → `MAInspector` *(roadmap)*
-- 🔦 **Multi-selection inspector** — "Multiple Values" placeholders; an edit
+- 🔦 **Multi-selection inspector** — “Multiple Values” placeholders; an edit
   applies to the whole selection. → `MAInspector` *(roadmap)*
 
 ## 12 · Sidebars & status
 
 - 🥾 **Source-list sidebar** — SwiftUI has `.sidebar` list style. → `MASidebar`
 - 🔦 **Badges / counts** on sidebar rows (the unread bubble). → `MASidebar` *(roadmap)*
-- 🔦 **Status bar** — "1,204 items, 3 selected", live. You rebuild it every app. → `MAStatusBar`
+- 🔦 **Status bar** — “1,204 items, 3 selected”, live. You rebuild it every app. → `MAStatusBar`
 - 🥾 **Real progress in context** — determinate bars and counts, not just a
   spinner. → `MAStatusBar` *(roadmap)*
 
@@ -149,7 +149,7 @@ it back. Tools are sketched in [Tools.md](Tools.md); proof it works in
 
 - 🔦 **Field-editor bindings** — ⌥-arrow by word, ⌃A/⌃E to line ends, the
   emacs-isms every macOS text field has had forever. → `MAField` *(roadmap)*
-- 🔦 **Token fields** — the Mail "To:" pill field. → `MATokenField` *(roadmap)*
+- 🔦 **Token fields** — the Mail “To:” pill field. → `MATokenField` *(roadmap)*
 - 🔦 **Combo box** — editable text + dropdown list in one. → `MAComboBox` *(roadmap)*
 - 🥾 **Tab / ⇧-Tab field navigation** and ⏎-to-commit in forms. → `MAForm` *(roadmap)*
 
@@ -164,7 +164,7 @@ it back. Tools are sketched in [Tools.md](Tools.md); proof it works in
 
 - 🔦 **Affordance-by-appearance** — a header that *looks* clickable, a divider
   that *looks* draggable. Flatness removed the visual cues that taught the
-  gestures. MacAssed's default look restores the cues without going full retro. → `MAChrome`
+  gestures. MacAssed’s default look restores the cues without going full retro. → `MAChrome`
 - 🔦 **Alternating rows, grid lines, density** — zebra striping beyond `Table`,
   compact/regular row heights. → `MAChrome`
 - 🔦 **Nostalgia skins** — Platinum and Aqua, for people who want them.
@@ -188,7 +188,7 @@ If §16 is the floor, this is the ceiling. The classic Mac Finder was *spatial*:
 one window per folder, each window reopening exactly where and how you left it,
 and — in icon view — every icon staying precisely where you put it. You
 navigated by muscle memory, because a place was a *place*. John Siracusa has made
-the case for it at length and for decades (*About the Finder…*, 2003); Mac OS X's
+the case for it at length and for decades (*About the Finder…*, 2003); Mac OS X’s
 navigational Finder threw most of it away.
 
 - 🔦 **Window place memory** — a folder reopens at the same size and spot every
@@ -200,27 +200,27 @@ navigational Finder threw most of it away.
   changes untouched. → `MASpatialView`
 - 🔦 **Clean Up · Arrange By · Keep Arranged** — the classic escape hatches for a
   layout gone messy, plus a **Reset Layout** that undoes an Arrange, because a
-  hand-placed layout is precious and shouldn't be destroyed without a way back. → `MASpatialCommands`
+  hand-placed layout is precious and shouldn’t be destroyed without a way back. → `MASpatialCommands`
 
 **Default or option?** Option — native by default, nostalgic by choice, and
 spatial mode is a philosophy you opt into with `.spatial()`. Window-frame memory
 is safe enough to default on; icon memory is the default *within* the spatial
 view (choosing it is the opt-in). Multi-display window placement restores exactly
-when the display is present and clamps safely onto the main display when it isn't
+when the display is present and clamps safely onto the main display when it isn’t
 — imperfect, never lossy.
 
 ---
 
-## What we're *not* trying to recover
+## What we’re *not* trying to recover
 
-Some things were left behind on purpose, and MacAssed doesn't relitigate them:
+Some things were left behind on purpose, and MacAssed doesn’t relitigate them:
 spatial mode *forced on by default* (a gorgeous option — see §17 — not a
 mandate), the Classic control panel maze, forcing every app into a document
-model, or reflexive skeuomorphism. The test for the drawer isn't "was it old,"
-it's **"did a real task get harder when it went."**
+model, or reflexive skeuomorphism. The test for the drawer isn’t “was it old,”
+it’s **”did a real task get harder when it went.”**
 
 ## Something missing from the drawer?
 
 This catalog is meant to grow with the community. If a table-stakes affordance
-you miss isn't here, that's a
+you miss isn’t here, that’s a
 [Lost & Found claim ticket](../CONTRIBUTING.md) waiting to be filed.

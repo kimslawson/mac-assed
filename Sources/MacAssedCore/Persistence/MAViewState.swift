@@ -20,7 +20,7 @@
 import Foundation
 
 /// A namespaced, `Codable` key/value store keyed by an autosave name. One
-/// instance owns one window/scene's remembered state.
+/// instance owns one window/scene’s remembered state.
 public protocol MAViewStateStore: Sendable {
     func load<T: Codable>(_ type: T.Type, for key: String) -> T?
     func save<T: Codable>(_ value: T, for key: String)

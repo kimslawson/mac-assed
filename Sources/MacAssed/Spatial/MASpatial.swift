@@ -108,7 +108,7 @@ public extension Scene {
     /// Opt this scene into the spatial window model: one window per place,
     /// frame-per-place memory, and bring-forward on re-open.
     ///
-    /// SwiftUI's `WindowGroup(for:)` already reuses a window per value — the
+    /// SwiftUI’s `WindowGroup(for:)` already reuses a window per value — the
     /// bones of one-window-per-folder. `.spatial()` layers on the frame
     /// persistence (via `MAWindowState`, keyed to the place id) and, on macOS,
     /// bridges to `NSWindow.setFrameAutosaveName` for pixel-true restoration.

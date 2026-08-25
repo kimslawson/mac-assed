@@ -9,7 +9,7 @@
 //  `MATable`: a plain SwiftUI `List` with the selection grammar, type-select,
 //  a sort menu (⌘-click the header chip), and context menus already wired in.
 //  It is the smallest step up from `List` that still feels mac-assed — and the
-//  right answer on iPhone, where multi-column tables don't belong.
+//  right answer on iPhone, where multi-column tables don’t belong.
 //
 //      MAList(notes, selection: $selection, sortedBy: [.finder("title", "Title", \.title),
 //                                                       MASortDescriptor("edited", "Date Edited", \.editedAt, using: .init())]) { note in
@@ -46,7 +46,7 @@ public struct MAList<Row: Identifiable & Sendable, RowView: View>: View {
         List(selection: $selection) {
             ForEach(rows.sorted(by: sort)) { row in rowView(row) }
         }
-        // A compact "Sort ▸" header chip and the ⇧/⌘/marquee grammar attach here
+        // A compact “Sort ▸” header chip and the ⇧/⌘/marquee grammar attach here
         // via the modifiers in MAModifiers.swift.
     }
 }

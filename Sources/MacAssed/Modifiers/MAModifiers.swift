@@ -2,8 +2,8 @@
 //  MAModifiers.swift  ·  MacAssed
 //
 //  ┌─ API SKETCH ─────────────────────────────────────────────────────────┐
-//  │ Design proposal. See docs/Tools.md § "Grafting modifiers" and         │
-//  │ docs/Examples.md § "Adopting one behavior at a time".                 │
+//  │ Design proposal. See docs/Tools.md § “Grafting modifiers” and         │
+//  │ docs/Examples.md § “Adopting one behavior at a time”.                 │
 //  └───────────────────────────────────────────────────────────────────────┘
 //
 //  Not everyone can throw out their `List`. These modifiers *graft* individual
@@ -18,7 +18,7 @@ public extension View {
 
     /// Type-select: start typing and the list jumps to the first row whose
     /// `text` matches, with a short reset timeout — the single most muscle-
-    /// memory'd Finder behavior SwiftUI dropped.
+    /// memory’d Finder behavior SwiftUI dropped.
     ///
     ///     List(files, selection: $sel) { … }
     ///         .maTypeSelect(files, id: \.id, text: \.name, selection: $sel)
@@ -50,9 +50,9 @@ public extension View {
         modifier(MATSVCopy(rows: rows, columns: columns))
     }
 
-    /// User-customizable toolbar — the classic "Customize Toolbar…" sheet with
+    /// User-customizable toolbar — the classic “Customize Toolbar…” sheet with
     /// drag-in/out items and icon/label modes, persisted under `id`. SwiftUI
-    /// toolbars aren't user-arrangeable; this brings that back.
+    /// toolbars aren’t user-arrangeable; this brings that back.
     func maCustomizableToolbar(id: String) -> some View {
         modifier(MACustomizableToolbar(autosaveID: id))
     }

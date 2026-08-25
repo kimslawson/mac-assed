@@ -33,7 +33,7 @@ That diff is the whole pitch.
 
 ## 2 · Adopting one behavior at a time
 
-Can't swap the list wholesale? Graft the single thing you miss most. Nothing
+Can’t swap the list wholesale? Graft the single thing you miss most. Nothing
 else changes.
 
 ```swift
@@ -41,7 +41,7 @@ List(people, selection: $selection) { PersonRow($0) }
     .maTypeSelect(people, id: \.id, text: \.lastName, selection: $selection)
 ```
 
-Now typing "sla" jumps to *Slawson*. Ship it Tuesday; do the rest never.
+Now typing “sla” jumps to *Slawson*. Ship it Tuesday; do the rest never.
 
 ---
 
@@ -80,7 +80,7 @@ struct InboxView: View {
 Restores, in one view: Finder sort · secondary sort (⌥-click *From* after
 *Received*) · ⇧/⌘/marquee selection · type-select on *From* · ⌘A/Invert from the
 menu bar · column resize/reorder/hide · autosaved widths **and** sort ·
-"Archive 3 Messages" that respects the selection · the count in the corner.
+“Archive 3 Messages” that respects the selection · the count in the corner.
 
 ---
 

@@ -3,12 +3,12 @@
 //
 //  ┌─ API SKETCH ─────────────────────────────────────────────────────────┐
 //  │ Design proposal. Public surface is drawn out; bodies are illustrative.│
-//  │ See docs/Tools.md § MASort and docs/Lost-and-Found.md § "The sort".   │
+//  │ See docs/Tools.md § MASort and docs/Lost-and-Found.md § “The sort”.   │
 //  └───────────────────────────────────────────────────────────────────────┘
 //
-//  LOST: NSSortDescriptor, multi-key sort stacks, and Finder's numeric-aware,
-//  case/diacritic-insensitive string ordering — the reason "Photo 2.png" sorts
-//  before "Photo 10.png" in the Finder and *after* it in a naive SwiftUI Table.
+//  LOST: NSSortDescriptor, multi-key sort stacks, and Finder’s numeric-aware,
+//  case/diacritic-insensitive string ordering — the reason “Photo 2.png” sorts
+//  before “Photo 10.png” in the Finder and *after* it in a naive SwiftUI Table.
 //
 //  FOUND: `MASortDescriptor` (the persistable per-level unit — the name is a
 //  deliberate nod to NSSortDescriptor), `MASort` (the primary→secondary→…
@@ -20,7 +20,7 @@ import Foundation
 // MARK: - MAFinderComparator
 
 /// A `SortComparator` that orders strings the way the Finder does: numeric-
-/// aware ("file2" < "file10"), case- and width-insensitive, locale-sensitive.
+/// aware (“file2” < “file10”), case- and width-insensitive, locale-sensitive.
 /// Backed by `localizedStandardCompare` — the same call AppKit column sorts use.
 public struct MAFinderComparator: SortComparator, Sendable {
     public var order: SortOrder
@@ -43,7 +43,7 @@ private extension ComparisonResult {
 
 /// One level of a sort: a named, `Codable`-shadowable key plus a direction.
 /// Unlike a bare `KeyPathComparator`, it carries a stable `id` (the autosave
-/// token) and a menu `title`, so "Sort By ▸ Size" and a restored-on-launch
+/// token) and a menu `title`, so “Sort By ▸ Size” and a restored-on-launch
 /// sort both refer to the same thing.
 public struct MASortDescriptor<Element>: Identifiable, Sendable {
     public let id: String

@@ -11,7 +11,7 @@ Two ideas run through all of it:
 
 1. **Batteries included, opt-out not opt-in.** `MATable` ships with sort,
    multi-select, type-select, keyboard nav, and TSV-copy *on*. You remove what
-   you don't want; you don't assemble what you do.
+   you don’t want; you don’t assemble what you do.
 2. **A UI-free core.** Every behavior lives in `MacAssedCore` as plain Swift you
    can test on Linux. `import MacAssed` for the views; `import MacAssedCore` for
    just the brains.
@@ -47,7 +47,7 @@ Restores: **§1** sorting · **§2** selection · **§3** keyboard · **§4** co
 
 ## The smaller sibling — `MAList`
 
-One column, same grammar. The right answer on iPhone and for anything that isn't
+One column, same grammar. The right answer on iPhone and for anything that isn’t
 tabular.
 
 ```swift
@@ -95,7 +95,7 @@ Restores: **§2**, **§3**.
 ### `MAColumnSpec` · `MAColumnLayout`
 The fixed column contract and the mutable, `Codable` layout (order, widths,
 visibility) keyed by autosave name. `reconcile(with:)` keeps saved layouts valid
-as an app's columns change.
+as an app’s columns change.
 Restores: **§4**.
 
 ### `MAViewState`
@@ -146,7 +146,7 @@ Restores: **§5**.
 ## Chrome — `MAChrome` *(opt-in)*
 
 Behavior everywhere else defaults to native looks; this is the only nostalgia
-knob, and it's off unless you turn it on.
+knob, and it’s off unless you turn it on.
 
 ```swift
 MATable(…) { … }.maChrome(.system)     // default — today's native look

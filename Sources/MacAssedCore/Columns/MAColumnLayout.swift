@@ -7,10 +7,10 @@
 //
 //  LOST: column management as a first-class, persistent thing — drag to
 //  reorder, drag the divider to resize, right-click the header to show/hide,
-//  double-click a divider to "size to fit", all remembered under an autosave
-//  name. NSTableView shipped this in 1997. SwiftUI's `Table` only began
+//  double-click a divider to “size to fit”, all remembered under an autosave
+//  name. NSTableView shipped this in 1997. SwiftUI’s `Table` only began
 //  restoring pieces (hide/reorder via `TableColumnCustomization`) in macOS 14,
-//  and still can't on a `List` or on iPad.
+//  and still can’t on a `List` or on iPad.
 //
 //  FOUND: `MAColumnSpec` (the fixed contract) + `MAColumnLayout` (the mutable,
 //  persistable state keyed by autosave name). Both UI-free, so one model can
@@ -21,7 +21,7 @@ import Foundation
 
 public typealias MAColumnID = String
 
-/// The immutable description of a column — the parts that don't change when the
+/// The immutable description of a column — the parts that don’t change when the
 /// user drags things around.
 public struct MAColumnSpec: Identifiable, Sendable {
     public let id: MAColumnID
@@ -82,7 +82,7 @@ public struct MAColumnLayout: Codable, Equatable, Sendable {
         widths[id] = Swift.min(Swift.max(width, spec.min), spec.max)
     }
 
-    /// "Size to Fit" — double-click a divider. The widest-cell measurement is a
+    /// “Size to Fit” — double-click a divider. The widest-cell measurement is a
     /// view-layer concern, injected as `contentWidth`.
     public mutating func sizeToFit(_ id: MAColumnID, contentWidth: CGFloat, spec: MAColumnSpec) {
         resize(id, to: contentWidth, spec: spec)

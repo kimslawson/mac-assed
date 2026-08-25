@@ -21,14 +21,14 @@
 //      .tableStatusBar()            // "1,204 messages, 3 selected"
 //
 //  ⇧-range, ⌘-toggle, marquee, ⌘A, type-select, ⌥-click secondary sort, and
-//  "Copy as TSV" are ON by default — because that is what mac-assed means. You
+//  “Copy as TSV” are ON by default — because that is what mac-assed means. You
 //  opt *out*, not in.
 //
 
 import SwiftUI
 import MacAssedCore
 
-/// A drop-in upgrade over SwiftUI's `Table`/`List` restoring the classic Mac
+/// A drop-in upgrade over SwiftUI’s `Table`/`List` restoring the classic Mac
 /// list affordances. Full-strength on macOS and iPad; degrades sensibly on iOS
 /// (see the platform matrix in DESIGN.md).
 public struct MATable<Row: Identifiable & Sendable>: View {
