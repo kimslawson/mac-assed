@@ -25,7 +25,12 @@ literal or a code fence break the code. The rule is prose-only.
   members are lowerCamelCase (`maTypeSelect` on Apple’s `View`; `columnAutosave`
   on our own `MATable`, no prefix since the type already namespaces it). The
   module is `MacAssed`; the types are `MA…` — the `Foundation`/`NS…` pattern.
-  See the README’s “Naming conventions” table.
+  See the README’s “Naming conventions” table. Note: Apple’s MediaAccessibility
+  framework also uses `MA` (`MACaptionAppearanceDomain`, …); module-qualification
+  avoids clashes, but never reuse a name Apple already ships.
+- **Complement, then back-deploy.** Where a MacAssed affordance overlaps a native
+  API, defer to the system with `if #available` and fall back to our own below;
+  never fork app code on OS version. See DESIGN.md § “Living alongside Apple.”
 - **Behavior lives in `MacAssedCore`** — plain, `Sendable`, `Codable`-friendly
   Swift with tests that run on any host (Linux CI included). SwiftUI views stay
   thin and go in `MacAssed`.

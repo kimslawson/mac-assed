@@ -106,6 +106,15 @@ method. The leading dot is call syntax (`view.padding()`), not part of the name.
 Same grammar Apple uses: `NSString` / `UIView` are Upper with the prefix; their
 members (`view.backgroundColor`) are lower.
 
+> **One caveat on `MA`.** Apple’s own [MediaAccessibility](https://developer.apple.com/documentation/mediaaccessibility)
+> framework also uses the `MA` prefix (`MACaptionAppearanceDomain`, …). Swift
+> module-qualifies (`MacAssed.MASelection` vs `MediaAccessibility.MACaptionAppearanceDomain`),
+> so there’s no hard clash — and it’s the accessibility framework a thoughtful
+> Mac app is likely to import, so the two will co-occur. The rule: never mint a
+> MacAssed type whose name Apple already ships (steer clear of the
+> `MACaptionAppearance…` / `MAAudibleMedia…` families). Our current names are all
+> clear.
+
 ## Contributing
 
 The catalog is meant to grow with the community — a foundation that lives and

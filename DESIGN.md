@@ -119,8 +119,11 @@ Versioned by usefulness, not completeness. Each milestone is shippable.
   `.maCopyAsTSV`, `.maFindBar`, `MAStatusBar`.
 - **v0.3 — Structure & space.** `MASpatial` — the spatial Finder: window place
   memory + icon-position memory (`MASpatialView`), with Clean Up / Arrange By /
-  Reset Layout. Then `MAOutline` (expand-all, persisted), `MADrag` (insertion
-  lines, spring-loading), `MASidebar` badges.
+  Reset Layout. Then `MAOutline` (expand-all, persisted); `MADrag` — *not*
+  reordering (Apple’s `.reorderable` covers that as of the 27 releases) but the
+  parts it doesn’t: insertion-line indicators, spring-loaded folders, cross-app
+  drags, and drag-session visibility polyfilled below macOS 26; and `MASidebar`
+  badges.
 - **v0.4 — Windows.** `.maCustomizableToolbar`, `MAInspector`/Get Info,
   `MAPanel`, proxy icons, `MADialog` defaults.
 - **v0.5+ — Text & undo.** `MATokenField`, `MAComboBox`, `MAField` editor
@@ -131,6 +134,15 @@ legible.
 
 ## Same orbit — what this is *not*
 
+- **Paulo Andrade’s field notes** — “Using SwiftUI to Build a Mac-assed App in
+  2026” and its [WWDC 26 update](https://pfandrade.me/blog/swiftui-mac-assed-wwdc26-update/)
+  are the closest prior art, and effectively this project’s problem statement: a
+  working Mac dev cataloguing exactly what pure SwiftUI still can’t do on the Mac
+  (de-emphasized selection, context-menu targets, drag-session visibility,
+  arrow-key *intent*, toolbar precision), radars filed. Gruber linked the first;
+  an Apple engineer wrote back. MacAssed is one answer *in library form* to the
+  gaps Andrade documents — where he says “track it yourself and pass it through
+  the environment,” MacAssed is the packaged version of that advice.
 - **[SwiftUIX](https://github.com/SwiftUIX/SwiftUIX)** — a broad library of
   *missing components* (controls SwiftUI never shipped). MacAssed overlaps at the
   edges but its center of gravity is different: *restoring interaction
@@ -140,11 +152,80 @@ legible.
   form: how to build a Mac-assed app. MacAssed is the *library* form: code you
   link so you don’t have to hand-build each affordance. Guidance tells you what
   good looks like; MacAssed hands you the parts.
-- **Apple’s own incremental additions** (`Table` sorting, `TableColumn`
-  customization, `.inspector`) — genuinely good, and MacAssed builds *on* them
-  where they exist rather than around them. The gap MacAssed fills is
-  consistency, defaults, cross-platform reach, and the long tail Apple hasn’t
-  gotten to.
+- **Apple itself.** WWDC 26 (the 27 releases) filled a few adjacent gaps —
+  `.reorderable`/`.reorderContainer` (list/grid reordering), `.onDragSessionUpdated`
+  (drag-session visibility, back-deployed to macOS 26), `.backgroundProminence`
+  and `.appearsActive` (selection & window emphasis), and toolbar
+  visibility/overflow APIs — but **none** of MacAssed’s core: sorting,
+  type-select, the multi-select grammar, spatial memory, the find bar, or a
+  user-customizable toolbar. MacAssed builds *on* the native APIs where they
+  exist (see [Living alongside Apple](#living-alongside-apple--complement-then-back-deploy))
+  and stays the sole provider where they don’t.
+
+## Living alongside Apple — complement, then back-deploy
+
+MacAssed never competes with a native API; it fills the space around one and
+retreats as Apple advances. Three postures, chosen per affordance:
+
+1. **Sole provider** — Apple ships nothing equivalent on any OS: Finder-order,
+   secondary, and persisted sorting; type-select; marquee; invert; the find bar;
+   column autosave; spatial memory. MacAssed implements these across its whole
+   supported range. This is the raison d’être, and it doesn’t move.
+2. **Polyfill, defer when native** — Apple shipped it recently, so it exists
+   above some OS version: reordering (`.reorderable`/`.reorderContainer`, the 27
+   releases), drag-session visibility (`.onDragSessionUpdated`, back-deployed to
+   macOS 26), selection emphasis (`.backgroundProminence`). MacAssed exposes one
+   stable call that uses the system implementation where present and its own
+   below — so you write it once and it does the right thing per OS, and you
+   inherit Apple’s polish and future improvements for free on new systems.
+3. **Availability-gap smoother** — Apple has it on some platforms but not
+   others. `.onMoveCommand` (arrow-key *intent*) is on macOS and tvOS but not
+   iOS/iPadOS, so list navigation otherwise needs two code paths — Paulo
+   Andrade’s exact gripe. MacAssed’s intent-level API picks the native one where
+   it exists and a fallback (`.onKeyPress`) where it doesn’t, with no
+   per-platform branching in app code.
+
+The healthy consequence: MacAssed’s value is greatest on older OSes (it’s the
+only source there) and narrows gracefully on newer ones (it defers). When Apple
+finally ships, say, native type-select, MacAssed adds one `if #available` branch
+and nothing in app code changes. That is what “live and flex with Swift
+developments” means concretely.
+
+### The mechanism (for folks coming from the web)
+
+The web instinct is `@supports` (feature detection) or an `#ifdef` version gate.
+Swift has both flavors, and the distinction is the whole game:
+
+- **Compile-time — the `#ifdef` analogue.** `#if os(macOS)`,
+  `#if canImport(AppKit)`, `#if swift(>=6.0)`. Decides what *compiles*. There is
+  deliberately **no** compile-time “target OS ≥ 27” test: you build against one
+  SDK and the binary runs on everything down to your deployment floor.
+- **Runtime — the `@supports` analogue, and the one that matters here.**
+  `if #available(macOS 27, *) { systemAPI() } else { maFallback() }`, plus
+  `@available(…)` and `#unavailable(…)`. This *is* a polyfill: ship both paths,
+  pick by the OS you’re **running on**. (There’s no “what’s on `PATH`” for UI
+  APIs — availability is an OS-version question resolved at runtime, not a
+  filesystem probe.)
+- **The floor — how far back.** The deployment target in `Package.swift`
+  (`platforms: [.macOS(.v14), …]`).
+- **`@backDeployed`** (Swift 5.8+) ships a function whose *body* runs below its
+  stated availability — handy for small conveniences; the heavy lifting still
+  goes through `#available`.
+
+### The floor, concretely
+
+Two tracks, because the macOS AppKit bridge reaches further back than pure
+SwiftUI:
+
+- **Pure-SwiftUI paths** floor at **macOS 14 / iOS 17** — where `.onKeyPress`,
+  `@Observable`, and Table column customization exist.
+- **The macOS `NSTableView` bridge** can back-deploy list affordances to
+  **macOS 12–13**, because AppKit already had them.
+
+A common shipping norm (Andrade’s included) is “the latest two majors,” so the
+window MacAssed most serves is exactly N‑2…N‑1 on the affordances Apple is only
+now getting to. The pattern is sketched in
+`Sources/MacAssed/Compatibility/MAAvailability.swift`.
 
 ## Open questions
 
@@ -158,8 +239,10 @@ Worth deciding in the open, with the community:
 3. **How much undo to own.** Wrap `NSUndoManager`, or provide a portable undo?
 4. **Theming surface.** How far does `MAChrome` go before it’s a design system
    of its own (a non-goal)?
-5. **Minimum OS.** v0.1 targets macOS 14 for `.onKeyPress` and column
-   customization. Is a macOS 13 back-deployment worth the bridge complexity?
+5. **The floor, per track.** The strategy is set (see *Living alongside Apple*);
+   the open call is the exact numbers: is the macOS 12–13 bridge back-deployment
+   worth its complexity, or is a clean macOS 14 / iOS 17 floor the right v0.1
+   line?
 6. **Spatial’s blast radius.** How much should one `.spatial()` turn on — window
    reuse, frame memory, *and* the icon canvas — vs. each as its own opt-in? And
    how hard should multi-display window restoration try before it clamps?

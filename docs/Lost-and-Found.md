@@ -108,6 +108,10 @@ it back. Tools are sketched in [Tools.md](Tools.md); proof it works in
   `.searchable` is a search *field*, not this. → `.maFindBar`
 - 🔦 **Scope bar** — “All / Name / Contents” buttons. → `.maFindBar(scopes:)`
 - 🔦 **Result count & Find Next (⌘G)** — “3 of 12”. → `.maFindBar`
+- 🔦 **Type-and-arrow** — keep typing in the find field while ↑/↓ walk the
+  results, Spotlight-style. A focused `TextField` swallows the arrow keys in pure
+  SwiftUI (Paulo Andrade’s example — a behavior his app has shipped for a
+  decade). → `.maFindBar` + `MASelection`
 - 🔦 **Filter tokens / smart-folder predicates**. → `MAFilter` *(roadmap)*
 
 ## 9 · Windows & documents
