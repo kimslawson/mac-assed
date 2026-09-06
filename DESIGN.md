@@ -93,6 +93,57 @@ identical across both; the backing is an implementation detail behind a
 - Backing is **pluggable** (`MAViewStateStore`): `UserDefaults` today; SwiftData
   or iCloud key-value later, without touching call sites.
 
+## Scope — Mac-first, platform-assed everywhere
+
+MacAssed restores *desktop* affordances, and an affordance belongs to an input
+model, not a logo. So the scope cuts the other way on iPhone: dragging Mac idioms
+onto touch would make MacAssed the very thing it objects to. The rule is
+**platform-assed** — Mac-assed on the Mac, iOS-assed on iOS.
+
+- **macOS — flagship, first-class.** Where the affordances were lost and where
+  they belong.
+- **iPadOS — first-class *when* a pointer or hardware keyboard is present.** A
+  docked iPad is a desktop-class machine and suffers the same austerity (Files,
+  say). Gate the pointer/keyboard affordances on the *input*, not the OS.
+- **iOS (iPhone) — deliberately minimal.** Only universal capabilities, in
+  native dress; never Mac chrome; then get out of the way.
+
+`MacAssedCore` (sorting, the selection model, layout) is platform-neutral and
+useful anywhere; only the *presentation* is platform-specific. The brand is Mac
+because that’s where the fight is — the discipline is symmetric.
+
+### What crosses, and how
+
+Three buckets sort every affordance:
+
+- **Input-bound** — needs a pointer or a physical keyboard: marquee, hover
+  tooltips, right-click, ⇧/⌘ ranges, type-select, arrow-nav. Present on Mac and
+  on pointer/keyboard iPad; simply absent on touch (no hover, no modifiers, no
+  keys). Gate by input capability.
+- **Form-bound** — needs screen real estate or windows: multi-column tables,
+  column resize/reorder/hide, spatial windows, floating inspectors. Mac and large
+  iPad; on iPhone they collapse to a single-column list.
+- **Idiom-bound** — the capability is universal but iOS already has a native
+  expression, so translate the capability and render it natively:
+
+  | Capability | Mac | iOS |
+  |---|---|---|
+  | Sort | clickable column headers | a “Sort” menu button (Files/Photos-style) |
+  | Multi-select | ⇧/⌘-click | Edit mode + two-finger drag-select |
+  | Find | ⌘F slide-down bar | `.searchable` |
+  | Context menu | right-click | long-press lift-and-preview |
+  | Quick Look | Spacebar | tap / peek |
+
+### Never on iPhone — the gauche list
+
+Hard “no,” because each would stick out as non-native: clickable column headers
+or multi-column tables on a phone; a marquee on touch; a ⌘F bar instead of native
+search; a “Customize Toolbar…” sheet; hand-placed spatial icon canvases; Mac
+window chrome; and above all, *replacing* native iOS idioms (swipe actions,
+pull-to-refresh, Edit mode, sheets, lift-and-preview) with Mac equivalents. The
+test: **would a careful iOS developer recognize this as native?** If not,
+MacAssed refuses to render it there.
+
 ## Platform matrix
 
 | Affordance | macOS | iPadOS | iOS (phone) | visionOS |
@@ -160,7 +211,12 @@ legible.
   type-select, the multi-select grammar, spatial memory, the find bar, or a
   user-customizable toolbar. MacAssed builds *on* the native APIs where they
   exist (see [Living alongside Apple](#living-alongside-apple--complement-then-back-deploy))
-  and stays the sole provider where they don’t.
+  and stays the sole provider where they don’t. And when Apple *does* fix a
+  specific instance, it tends to be a point fix: the TestFlight sort regression
+  that named this project was patched in TestFlight v4.3.1 on 3 September 2026 —
+  roughly five weeks after the complaint — with no change to SwiftUI’s austere
+  defaults. Apple whacks the loudest mole; the systemic gap remains, which is
+  exactly what a library-level fix is for.
 
 ## Living alongside Apple — complement, then back-deploy
 

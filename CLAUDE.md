@@ -38,6 +38,12 @@ literal or a code fence break the code. The rule is prose-only.
   unless there’s a strong reason otherwise.
 - **Native by default, nostalgic by choice.** Period looks and spatial mode are
   opt-in; they never change *which* affordances exist.
+- **Platform-assed, not Mac-assed everywhere.** Mac is the flagship; iPad is
+  first-class *when* a pointer/keyboard is present; iPhone gets only universal
+  capabilities in native dress. Never render Mac chrome (clickable headers,
+  marquee, a ⌘F bar, Customize Toolbar, spatial canvases) on touch, and never
+  replace a native iOS idiom with a Mac one. Gate input-bound affordances on the
+  input, not the OS. See DESIGN.md § “Scope.”
 - **Accessibility ships with the affordance**, not after it.
 
 ## Status
