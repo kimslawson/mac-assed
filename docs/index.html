@@ -347,80 +347,6 @@ footer{border-top:1px solid var(--line);padding:44px 0 60px;color:var(--muted);f
 .sp-icon.drag{cursor:grabbing;z-index:5}
 .sp-icon.anim{transition:left .34s cubic-bezier(.2,.7,.2,1),top .34s cubic-bezier(.2,.7,.2,1)}
 
-/* ============================ MACHROME DEMO ============================ */
-.chrome-demo{max-width:560px;overflow:hidden;font-size:.9rem}
-.chrome-demo .cd-titlebar{display:flex;align-items:center;gap:6px;padding:0 8px;height:22px;position:relative}
-.chrome-demo .cd-tl{display:flex;gap:8px;flex:0 0 auto}
-.chrome-demo .cd-tl i{width:12px;height:12px;border-radius:50%;display:block;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.14)}
-.chrome-demo .cd-plat{display:none;align-items:center;gap:5px;flex:0 0 auto}
-.chrome-demo .cd-plat-close{width:13px;height:11px;flex:0 0 auto}
-.chrome-demo .cd-plat-right i{width:13px;height:11px;display:block}
-.chrome-demo .cd-title{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.chrome-demo .cd-titletext{font-size:.8rem;font-weight:600;letter-spacing:.01em}
-.cd-table{width:100%;border-collapse:separate;border-spacing:0}
-.cd-table th{text-align:left;font-weight:600;padding:4px 11px;font-size:.78rem;white-space:nowrap}
-.cd-table td{padding:4px 11px;white-space:nowrap}
-.cd-table td.num{text-align:right;font-variant-numeric:tabular-nums}
-.cd-statusbar{padding:4px 11px;font-size:.72rem}
-.cd-era{margin-top:14px;font-family:"JetBrains Mono",monospace;font-size:.76rem;color:var(--muted);max-width:64ch;line-height:1.5}
-.cd-era b{color:var(--ink-soft);font-weight:600}
-.cd-era .k{color:var(--aqua-ink)}
-
-/* ---- System · theme-aware, matches the page ---- */
-.chrome-demo[data-chrome="system"]{background:var(--surface);border:1px solid var(--line-strong);border-radius:12px;box-shadow:var(--shadow)}
-.chrome-demo[data-chrome="system"] .cd-titlebar{background:linear-gradient(var(--tb-top),var(--tb-bot));border-bottom:1px solid var(--line-strong)}
-.chrome-demo[data-chrome="system"] .cd-tl i:nth-child(1){background:var(--tl-red)}
-.chrome-demo[data-chrome="system"] .cd-tl i:nth-child(2){background:var(--tl-yellow)}
-.chrome-demo[data-chrome="system"] .cd-tl i:nth-child(3){background:var(--tl-green)}
-.chrome-demo[data-chrome="system"] .cd-titletext{color:var(--ink-soft)}
-.chrome-demo[data-chrome="system"] .cd-table th{background:linear-gradient(var(--tb-top),var(--tb-bot));border-bottom:1px solid var(--line-strong);color:var(--ink-soft)}
-.chrome-demo[data-chrome="system"] .cd-table td{border-bottom:1px solid var(--line);color:var(--ink-soft)}
-.chrome-demo[data-chrome="system"] .cd-table td.name{color:var(--ink)}
-.chrome-demo[data-chrome="system"] .cd-table tr.sel td{background:var(--sel);color:var(--ink)}
-.chrome-demo[data-chrome="system"] .cd-statusbar{background:linear-gradient(var(--tb-top),var(--tb-bot));border-top:1px solid var(--line-strong);color:var(--muted)}
-
-/* ---- Platinum · Mac OS 8–9 (matte grays, pinstripe title bar, chiselled boxes) ---- */
-.chrome-demo[data-chrome="platinum"]{background:#d4d4d4;border:1px solid #000;border-radius:0;color:#000;
-  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #7d7d7d, 3px 3px 0 rgba(0,0,0,.22);
-  font-family:"Charcoal","Helvetica Neue",Helvetica,Arial,sans-serif}
-.chrome-demo[data-chrome="platinum"] .cd-tl{display:none}
-.chrome-demo[data-chrome="platinum"] .cd-plat{display:flex}
-.chrome-demo[data-chrome="platinum"] .cd-plat-right{margin-left:auto}
-.chrome-demo[data-chrome="platinum"] .cd-titlebar{height:20px;border-bottom:1px solid #7d7d7d;
-  background:repeating-linear-gradient(to bottom,#ededed 0 1px,#c2c2c2 1px 2px);box-shadow:inset 0 1px 0 #fff}
-.chrome-demo[data-chrome="platinum"] .cd-plat-close,
-.chrome-demo[data-chrome="platinum"] .cd-plat-right i{background:#d4d4d4;border:1px solid #454545;
-  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #8a8a8a}
-.chrome-demo[data-chrome="platinum"] .cd-titletext{color:#000;font-weight:700;background:#d4d4d4;padding:0 10px}
-.chrome-demo[data-chrome="platinum"] .cd-body{margin:5px;background:#fff;border:1px solid #7d7d7d;
-  box-shadow:inset 1px 1px 0 #808080, inset -1px -1px 0 #fff}
-.chrome-demo[data-chrome="platinum"] .cd-table th{background:linear-gradient(#ececec,#cdcdcd);color:#000;
-  border-right:1px solid #a5a5a5;border-bottom:1px solid #7d7d7d;box-shadow:inset 1px 1px 0 #fff}
-.chrome-demo[data-chrome="platinum"] .cd-table td{border-bottom:1px solid #e2e2e2;color:#000}
-.chrome-demo[data-chrome="platinum"] .cd-table tr.sel td{background:#b6d6ff;color:#000}
-.chrome-demo[data-chrome="platinum"] .cd-statusbar{background:#d4d4d4;border-top:1px solid #7d7d7d;color:#333;box-shadow:inset 0 1px 0 #fff}
-
-/* ---- Aqua · Mac OS X 10.0–10.3 (glossy lights, pinstripe body, gel selection) ---- */
-.chrome-demo[data-chrome="aqua"]{background:#fff;border:1px solid #6f6f6f;border-radius:9px 9px 7px 7px;color:#1a1a1a;
-  box-shadow:0 14px 34px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.6);
-  font-family:"Lucida Grande","Hanken Grotesk",system-ui,sans-serif}
-.chrome-demo[data-chrome="aqua"] .cd-plat{display:none}
-.chrome-demo[data-chrome="aqua"] .cd-titlebar{height:23px;border-bottom:1px solid #9a9a9a;
-  background:linear-gradient(#efefef,#cdcdcd);box-shadow:inset 0 1px 0 #fff}
-.chrome-demo[data-chrome="aqua"] .cd-tl i{box-shadow:inset 0 1px 1px rgba(255,255,255,.7), inset 0 -1px 1px rgba(0,0,0,.18)}
-.chrome-demo[data-chrome="aqua"] .cd-tl i:nth-child(1){background:radial-gradient(circle at 50% 28%,#ff9a94,#f0554d)}
-.chrome-demo[data-chrome="aqua"] .cd-tl i:nth-child(2){background:radial-gradient(circle at 50% 28%,#ffe08a,#efb02a)}
-.chrome-demo[data-chrome="aqua"] .cd-tl i:nth-child(3){background:radial-gradient(circle at 50% 28%,#a2e389,#37ac37)}
-.chrome-demo[data-chrome="aqua"] .cd-titletext{color:#2b2b2b;font-weight:500;text-shadow:0 1px 0 rgba(255,255,255,.85)}
-.chrome-demo[data-chrome="aqua"] .cd-body{background:repeating-linear-gradient(to bottom,#ffffff 0 2px,#eef3fb 2px 4px)}
-.chrome-demo[data-chrome="aqua"] .cd-table th{background:linear-gradient(#fbfbfd,#dbdbe1);color:#333;
-  border-right:1px solid #c4c4ca;border-bottom:1px solid #a7a7ad;box-shadow:inset 0 1px 0 #fff}
-.chrome-demo[data-chrome="aqua"] .cd-table td{border-bottom:1px solid rgba(0,0,0,.06)}
-.chrome-demo[data-chrome="aqua"] .cd-table td.name{color:#111}
-.chrome-demo[data-chrome="aqua"] .cd-table tr.sel td{background:linear-gradient(#4a90f2,#2b6fe0);color:#fff;
-  border-bottom-color:#2b6fe0;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
-.chrome-demo[data-chrome="aqua"] .cd-statusbar{background:linear-gradient(#f2f2f2,#dcdcdc);border-top:1px solid #b4b4b4;color:#555;box-shadow:inset 0 1px 0 #fff}
-
 /* ============================ MOTION ============================ */
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
@@ -592,49 +518,6 @@ footer{border-top:1px solid var(--line);padding:44px 0 60px;color:var(--muted);f
     <div class="sp-canvas" id="spCanvas" aria-label="Spatial icon view — drag to reposition"></div>
   </div>
   <p class="demo-note"><b>Clean Up</b> snaps to the grid without reordering; <b>Arrange by Name</b> reflows a sorted grid; <b>Reset Layout</b> undoes the arrange, because a hand-placed layout is precious. Icon positions are content-relative, so they’re <b>display-independent</b> — they survive a monitor change untouched; only <i>window</i> placement carries the multi-display asterisk. In MacAssed this is <code style="font-family:'JetBrains Mono',monospace;font-size:.82em;color:var(--aqua-ink)">MASpatialView</code> — opt-in, because it’s native by default, nostalgic by choice.</p>
-</section>
-
-<hr class="rule wrap" style="max-width:1000px">
-
-<!-- ============================ MACHROME ============================ -->
-<section class="wrap" id="chrome">
-  <div class="demo-head">
-    <div>
-      <span class="eyebrow">/ §15 · The look</span>
-      <h2 style="font-size:clamp(1.6rem,3.4vw,2.2rem);letter-spacing:-.02em;margin-top:12px">Native by default. Nostalgic by choice.</h2>
-      <p style="color:var(--muted);margin-top:8px;max-width:58ch">Behavior everywhere else stays modern. <code style="font-family:'JetBrains Mono',monospace;font-size:.85em;color:var(--aqua-ink)">MAChrome</code> is the one opt-in knob — faithful period skins for people who want them. Same window, same affordances; only the paint changes.</p>
-    </div>
-    <div class="seg" role="group" aria-label="MAChrome skin">
-      <button id="chSystem" aria-pressed="true">System</button>
-      <button id="chPlatinum" aria-pressed="false">Platinum</button>
-      <button id="chAqua" aria-pressed="false">Aqua</button>
-    </div>
-  </div>
-
-  <div class="chrome-demo" id="chromeWin" data-chrome="system">
-    <div class="cd-titlebar">
-      <span class="cd-tl"><i></i><i></i><i></i></span>
-      <span class="cd-plat cd-plat-close"></span>
-      <span class="cd-plat cd-plat-right"><i></i><i></i></span>
-      <span class="cd-title"><span class="cd-titletext">Documents</span></span>
-    </div>
-    <div class="cd-body">
-      <div class="tablewrap">
-        <table class="cd-table">
-          <thead><tr><th>Name</th><th>Kind</th><th class="num">Size</th><th class="num">Modified</th></tr></thead>
-          <tbody>
-            <tr><td class="name">Read Me</td><td>SimpleText</td><td class="num">4 KB</td><td class="num">Mar 12 1999</td></tr>
-            <tr><td class="name">System Folder</td><td>Folder</td><td class="num">—</td><td class="num">Jan 1 2000</td></tr>
-            <tr class="sel"><td class="name">Sunset.pict</td><td>Picture</td><td class="num">128 KB</td><td class="num">Aug 24 1998</td></tr>
-            <tr><td class="name">Résumé</td><td>Document</td><td class="num">22 KB</td><td class="num">Sep 3 2001</td></tr>
-            <tr><td class="name">Backup.img</td><td>Disk Image</td><td class="num">640 KB</td><td class="num">Dec 31 1999</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="cd-statusbar" id="cdStatus">5 items · System appearance</div>
-  </div>
-  <p class="cd-era" id="cdEra"><b>System · today.</b> <span class="k">MATable(…).maChrome(.system)</span> — the default; follows the OS and this page’s theme.</p>
 </section>
 
 <hr class="rule wrap" style="max-width:1000px">
@@ -988,35 +871,6 @@ footer{border-top:1px solid var(--line);padding:44px 0 60px;color:var(--muted);f
       ITEMS.forEach(function(it){pos[it.id]=clamp(pos[it.id])}); place(false);
     },120);
   });
-})();
-
-/* ---------- MAChrome skin switcher ---------- */
-(function(){
-  "use strict";
-  var win=document.getElementById("chromeWin"); if(!win)return;
-  var LS={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},
-          set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
-  var META={
-    system:{status:"5 items · System appearance",
-      era:'<b>System · today.</b> <span class="k">MATable(…).maChrome(.system)</span> — the default; follows the OS and this page’s theme.'},
-    platinum:{status:"5 items · Platinum appearance",
-      era:'<b>Platinum · Mac OS 8–9 (1997).</b> <span class="k">MATable(…).maChrome(.platinum)</span> — matte grays, a pinstriped title bar, chiselled boxes, light-blue selection.'},
-    aqua:{status:"5 items · Aqua appearance",
-      era:'<b>Aqua · Mac OS X 10.0–10.3 (2001).</b> <span class="k">MATable(…).maChrome(.aqua)</span> — glossy traffic lights, blue-white pinstripes, the lickable blue gel selection.'}
-  };
-  var btns={system:document.getElementById("chSystem"),
-            platinum:document.getElementById("chPlatinum"),
-            aqua:document.getElementById("chAqua")};
-  var era=document.getElementById("cdEra"), status=document.getElementById("cdStatus");
-  function set(sk){
-    if(!META[sk]) sk="system";
-    win.setAttribute("data-chrome",sk);
-    for(var k in btns) btns[k].setAttribute("aria-pressed", k===sk?"true":"false");
-    era.innerHTML=META[sk].era; status.textContent=META[sk].status;
-    LS.set("ma-chrome",sk);
-  }
-  Object.keys(btns).forEach(function(sk){ btns[sk].addEventListener("click",function(){set(sk)}); });
-  set(LS.get("ma-chrome") || "system");
 })();
 </script>
 </body>
