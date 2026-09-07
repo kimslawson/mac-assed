@@ -35,7 +35,7 @@ them again, and a generation of apps gets its usability back.
    way it was left — the AppKit contract, restored.
 6. **Degrade honestly.** A multi-column table isn’t right on iPhone; MacAssed
    collapses to the correct simpler control rather than cramming.
-7. **Accessibility is load-bearing, not a coat of paint.** Keyboard operability
+7. **Accessibility is built in, not painted on.** Keyboard operability
    is what makes type-select and arrow-nav real; it ships with the affordance,
    not after it.
 8. **Live with Swift, not against it.** Reuse `SortComparator`, `KeyPath`,
