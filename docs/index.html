@@ -1,0 +1,1023 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>html{color-scheme:light}:root[data-theme="dark"]{color-scheme:dark}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark}}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>MacAssed</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+
+<style>
+/* ============================ TOKENS ============================ */
+/* Light = "Platinum": cool platinum greys + Aqua blue accent. */
+:root{
+  --paper:#EEF0F5;
+  --surface:#FFFFFF;
+  --surface-2:#F5F6FA;
+  --tb-top:#FDFDFE; --tb-bot:#E4E7EF;      /* Platinum title-bar gradient */
+  --ink:#191B22;
+  --ink-soft:#3A3E4B;
+  --muted:#616779;
+  --line:#D6DAE4;
+  --line-strong:#C2C7D4;
+  --aqua:#2C6BED;                           /* early Mac OS X Aqua blue */
+  --aqua-ink:#1B54C9;
+  --aqua-soft:rgba(44,107,237,.13);
+  --sel:rgba(44,107,237,.15);
+  --lost:#5C6273;                           /* catalog: genuinely gone */
+  --lost-bg:rgba(92,98,115,.12);
+  --kick:#9A6712;                           /* catalog: needs a swift kick */
+  --kick-bg:rgba(200,140,30,.15);
+  --tl-red:#FF5F57; --tl-yellow:#FEBC2E; --tl-green:#28C840;
+  --code-bg:#F5F6FA; --code-str:#227A4B; --code-com:#8A8F9E;
+  --shadow:0 1px 2px rgba(20,24,40,.06), 0 18px 44px -20px rgba(20,24,40,.28);
+  --shadow-soft:0 1px 2px rgba(20,24,40,.05), 0 10px 24px -16px rgba(20,24,40,.22);
+  --ring:var(--aqua);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#111318;
+    --surface:#1B1E25;
+    --surface-2:#22262F;
+    --tb-top:#2B2F3A; --tb-bot:#1E222B;
+    --ink:#E9EBF2;
+    --ink-soft:#C6CAD7;
+    --muted:#969CAD;
+    --line:#2E323D;
+    --line-strong:#3B4150;
+    --aqua:#4C8DFF;
+    --aqua-ink:#7AA9FF;
+    --aqua-soft:rgba(76,141,255,.16);
+    --sel:rgba(76,141,255,.22);
+    --lost:#9096A6;
+    --lost-bg:rgba(144,150,166,.15);
+    --kick:#E0A84B;
+    --kick-bg:rgba(224,168,75,.16);
+    --code-bg:#15171D; --code-str:#5BC98C; --code-com:#767C8C;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 22px 50px -22px rgba(0,0,0,.7);
+    --shadow-soft:0 1px 2px rgba(0,0,0,.3), 0 12px 28px -18px rgba(0,0,0,.55);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111318;
+  --surface:#1B1E25;
+  --surface-2:#22262F;
+  --tb-top:#2B2F3A; --tb-bot:#1E222B;
+  --ink:#E9EBF2;
+  --ink-soft:#C6CAD7;
+  --muted:#969CAD;
+  --line:#2E323D;
+  --line-strong:#3B4150;
+  --aqua:#4C8DFF;
+  --aqua-ink:#7AA9FF;
+  --aqua-soft:rgba(76,141,255,.16);
+  --sel:rgba(76,141,255,.22);
+  --lost:#9096A6;
+  --lost-bg:rgba(144,150,166,.15);
+  --kick:#E0A84B;
+  --kick-bg:rgba(224,168,75,.16);
+  --code-bg:#15171D; --code-str:#5BC98C; --code-com:#767C8C;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 22px 50px -22px rgba(0,0,0,.7);
+  --shadow-soft:0 1px 2px rgba(0,0,0,.3), 0 12px 28px -18px rgba(0,0,0,.55);
+}
+
+/* ============================ BASE ============================ */
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4{font-family:"Archivo",system-ui,sans-serif;line-height:1.08;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--aqua-ink);text-decoration-thickness:1px;text-underline-offset:2px}
+a:hover{text-decoration-color:var(--aqua)}
+code,kbd{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+:focus-visible{outline:2.5px solid var(--ring);outline-offset:2px;border-radius:3px}
+.tnum{font-variant-numeric:tabular-nums}
+
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+.prose{max-width:70ch}
+section{padding:clamp(48px,7vw,86px) 0}
+.eyebrow{
+  font-family:"JetBrains Mono",monospace;font-size:.72rem;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+}
+
+/* ============================ THEME TOGGLE ============================ */
+.themer{
+  position:fixed;top:16px;right:16px;z-index:50;
+  width:40px;height:40px;border-radius:11px;
+  display:grid;place-items:center;cursor:pointer;
+  background:var(--surface);border:1px solid var(--line);color:var(--ink);
+  box-shadow:var(--shadow-soft);
+}
+.themer:hover{border-color:var(--line-strong)}
+.themer svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8}
+.themer .moon{display:none} :root[data-theme="dark"] .themer .sun{display:none}
+:root[data-theme="dark"] .themer .moon{display:block}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .themer .sun{display:none}
+  :root:not([data-theme="light"]) .themer .moon{display:block}
+}
+
+/* ============================ WINDOW CHROME ============================ */
+.win{
+  background:var(--surface);
+  border:1px solid var(--line-strong);
+  border-radius:12px; overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.titlebar{
+  display:flex;align-items:center;gap:12px;
+  padding:0 14px;height:38px;
+  background:linear-gradient(var(--tb-top),var(--tb-bot));
+  border-bottom:1px solid var(--line-strong);
+}
+.lights{display:flex;gap:8px;flex:0 0 auto}
+.lights i{width:12px;height:12px;border-radius:50%;display:block;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.14)}
+.lights i:nth-child(1){background:var(--tl-red)}
+.lights i:nth-child(2){background:var(--tl-yellow)}
+.lights i:nth-child(3){background:var(--tl-green)}
+.titlebar .name{
+  flex:1;text-align:center;font-family:"Archivo",sans-serif;font-weight:700;
+  font-size:.86rem;letter-spacing:.01em;color:var(--ink-soft);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  /* keep title visually centered against the 3 lights on the left */
+  margin-right:52px;
+}
+
+/* ============================ HERO ============================ */
+.hero{padding-top:clamp(56px,9vw,104px)}
+.hero .eyebrow{display:block;margin-bottom:20px}
+.wordmark{
+  font-weight:900;font-size:clamp(3rem,10vw,6.2rem);letter-spacing:-.03em;
+  line-height:.92;margin-bottom:.24em;
+}
+.wordmark .assed{
+  color:var(--aqua);
+  /* the sort-triangle motif, tucked into the wordmark */
+}
+.tagline{font-weight:700;font-size:clamp(1.3rem,3.2vw,1.9rem);letter-spacing:-.01em;margin-bottom:.7em}
+.deck{font-size:clamp(1.05rem,2vw,1.22rem);color:var(--ink-soft);max-width:60ch}
+.deck em{font-style:normal;color:var(--aqua-ink);font-weight:600}
+
+.quote{
+  margin:36px 0 8px;padding:18px 22px;max-width:64ch;
+  border-left:3px solid var(--aqua);
+  background:var(--aqua-soft);border-radius:0 10px 10px 0;
+}
+.quote p{font-size:1.06rem;font-weight:500;color:var(--ink)}
+.quote cite{display:block;margin-top:8px;font-style:normal;font-size:.82rem;color:var(--muted);font-family:"JetBrains Mono",monospace}
+
+/* ============================ DEMO ============================ */
+.demo{margin-top:44px}
+.demo-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px;margin-bottom:16px}
+.demo-head h2{font-size:1.5rem;letter-spacing:-.01em}
+.demo-head p{color:var(--muted);font-size:.95rem;margin-top:4px}
+
+.seg{
+  display:inline-flex;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:10px;padding:3px;gap:2px;flex:0 0 auto;
+}
+.seg button{
+  font-family:"Hanken Grotesk",sans-serif;font-size:.86rem;font-weight:600;
+  padding:7px 14px;border:0;border-radius:7px;cursor:pointer;color:var(--muted);
+  background:transparent;white-space:nowrap;
+}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow-soft)}
+.seg button:hover:not([aria-pressed="true"]){color:var(--ink-soft)}
+
+.finder{width:100%;border-collapse:separate;border-spacing:0;font-size:.92rem}
+.finder thead th{
+  position:sticky;top:0;
+  background:linear-gradient(var(--tb-top),var(--tb-bot));
+  border-bottom:1px solid var(--line-strong);
+  text-align:left;font-weight:600;color:var(--ink-soft);
+  padding:0;white-space:nowrap;z-index:2;
+}
+.finder thead th button{
+  width:100%;font:inherit;color:inherit;background:transparent;border:0;
+  padding:9px 14px;display:flex;align-items:center;gap:6px;cursor:default;
+  border-right:1px solid transparent;
+}
+.finder th.num button{justify-content:flex-end}
+.win[data-mode="mac"] .finder thead th button{cursor:pointer}
+.win[data-mode="mac"] .finder thead th button:hover{background:rgba(0,0,0,.035)}
+:root[data-theme="dark"] .win[data-mode="mac"] .finder thead th button:hover{background:rgba(255,255,255,.05)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .win[data-mode="mac"] .finder thead th button:hover{background:rgba(255,255,255,.05)}}
+.finder th .tri{font-size:.62rem;color:var(--aqua);opacity:0;transform:translateY(-1px)}
+.finder th[aria-sort="ascending"] .tri,.finder th[aria-sort="descending"] .tri{opacity:1}
+.finder th[aria-sort] button{color:var(--ink)}
+
+.finder tbody td{padding:8px 14px;border-bottom:1px solid var(--line);color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.finder tbody td.name{color:var(--ink);font-weight:500}
+.finder td.num{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+.finder tbody tr{cursor:default;user-select:none}
+.win[data-mode="mac"] .finder tbody tr:nth-child(even) td{background:var(--surface-2)}
+.win[data-mode="mac"] .finder tbody tr.sel td{background:var(--sel);color:var(--ink)}
+.win[data-mode="mac"] .finder tbody tr.sel td.name{box-shadow:inset 3px 0 0 var(--aqua)}
+.win[data-mode="aust"] .finder tbody tr.sel td{background:var(--sel)}
+.win[data-mode="mac"] .finder tbody tr:hover td{background:var(--aqua-soft)}
+.win[data-mode="mac"] .finder tbody tr.sel:hover td{background:var(--sel)}
+.kindcell{color:var(--muted)}
+
+.statusbar{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:7px 14px;border-top:1px solid var(--line-strong);
+  background:linear-gradient(var(--tb-top),var(--tb-bot));
+  font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums;
+}
+.statusbar .sbhint{font-family:"JetBrains Mono",monospace;font-size:.72rem}
+.win[data-mode="aust"] .statusbar{color:var(--muted);opacity:.85}
+.tablewrap{overflow-x:auto}
+.finder tbody tr:focus-visible td{background:var(--aqua-soft)}
+
+.demo-note{font-size:.9rem;color:var(--muted);margin-top:14px;max-width:64ch}
+.demo-note b{color:var(--ink-soft);font-weight:600}
+kbd{
+  font-size:.78em;background:var(--surface-2);border:1px solid var(--line-strong);
+  border-bottom-width:2px;border-radius:5px;padding:1px 6px;color:var(--ink-soft);
+}
+
+/* ============================ CODE COMPARE ============================ */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+@media (max-width:680px){.compare{grid-template-columns:1fr}}
+.codecard{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-soft)}
+.codecard header{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:.78rem;font-family:"JetBrains Mono",monospace;color:var(--muted)}
+.codecard header .dot{width:8px;height:8px;border-radius:50%}
+.codecard.before header .dot{background:var(--lost)}
+.codecard.after header .dot{background:var(--aqua)}
+pre{margin:0;padding:16px;background:var(--code-bg);overflow-x:auto}
+pre code{font-size:.8rem;line-height:1.6;color:var(--ink-soft);white-space:pre}
+.t{color:var(--aqua-ink);font-weight:500}   /* type */
+.s{color:var(--code-str)}                    /* string */
+.c{color:var(--code-com);font-style:italic}  /* comment */
+.m{color:var(--muted)}                        /* punctuation-ish */
+
+/* ============================ SECTION HEADINGS ============================ */
+.shead{margin-bottom:10px}
+.shead h2{font-size:clamp(1.7rem,3.6vw,2.3rem);letter-spacing:-.02em}
+.shead .sub{color:var(--muted);font-size:1.02rem;margin-top:8px;max-width:60ch}
+.rule{height:1px;background:var(--line);border:0;margin:0}
+
+/* ============================ CATALOG ============================ */
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin:22px 0 30px;font-size:.86rem}
+.legend .pill{margin-right:8px}
+.pill{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:"JetBrains Mono",monospace;font-size:.68rem;font-weight:500;
+  letter-spacing:.02em;text-transform:uppercase;
+  padding:2px 8px;border-radius:100px;white-space:nowrap;
+}
+.pill.lost{color:var(--lost);background:var(--lost-bg)}
+.pill.kick{color:var(--kick);background:var(--kick-bg)}
+.pill .g{font-size:.9em}
+
+.cat-group{margin-bottom:30px}
+.cat-group h3{font-size:.82rem;font-family:"JetBrains Mono",monospace;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.cat-group h3::after{content:"";flex:1;height:1px;background:var(--line)}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:12px}
+.entry{
+  background:var(--surface);border:1px solid var(--line);border-radius:11px;
+  padding:14px 15px;box-shadow:var(--shadow-soft);
+}
+.entry .top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:5px}
+.entry .en{font-weight:700;font-family:"Archivo",sans-serif;font-size:1rem;letter-spacing:-.01em}
+.entry .ed{font-size:.86rem;color:var(--muted);line-height:1.5}
+.entry .tool{margin-top:8px;font-family:"JetBrains Mono",monospace;font-size:.74rem;color:var(--aqua-ink)}
+.catalog-more{margin-top:8px;font-size:.95rem;color:var(--muted)}
+
+/* ============================ TOOLS ============================ */
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px}
+@media (max-width:640px){.tools{grid-template-columns:1fr}}
+.tool-row{display:flex;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line)}
+.tool-row .nm{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:.9rem;color:var(--ink);flex:0 0 auto;min-width:132px}
+.tool-row .ds{font-size:.9rem;color:var(--muted)}
+.tool-row.soon .nm{color:var(--muted);font-weight:500}
+.tool-row.soon .ds::after{content:" · roadmap";color:var(--aqua-ink);font-family:"JetBrains Mono",monospace;font-size:.72rem}
+
+/* ============================ NAME ASIDE ============================ */
+.aside{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:clamp(22px,4vw,34px);box-shadow:var(--shadow-soft)}
+.aside h3{font-size:1.15rem;margin-bottom:10px;letter-spacing:-.01em}
+.aside p{color:var(--ink-soft);font-size:.98rem;margin-bottom:14px}
+.aside p:last-child{margin-bottom:0}
+.aside code{background:var(--code-bg);padding:1px 6px;border-radius:5px;font-size:.82em;color:var(--aqua-ink)}
+
+/* ============================ ROADMAP ============================ */
+.road{display:grid;gap:0}
+.milestone{display:grid;grid-template-columns:auto 1fr;gap:18px}
+.milestone .marker{display:flex;flex-direction:column;align-items:center}
+.milestone .ver{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:.8rem;color:var(--aqua);background:var(--aqua-soft);padding:3px 9px;border-radius:100px;white-space:nowrap}
+.milestone .stem{flex:1;width:2px;background:var(--line);margin:6px 0}
+.milestone:last-child .stem{background:transparent}
+.milestone .body{padding-bottom:26px}
+.milestone .body h4{font-size:1.05rem;margin-bottom:4px;letter-spacing:-.01em}
+.milestone .body p{color:var(--muted);font-size:.92rem}
+.milestone .body .mono{font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--ink-soft)}
+
+/* ============================ FOOTER ============================ */
+footer{border-top:1px solid var(--line);padding:44px 0 60px;color:var(--muted);font-size:.9rem}
+.foot-grid{display:flex;flex-wrap:wrap;gap:28px 44px;justify-content:space-between}
+.foot-links{display:flex;flex-wrap:wrap;gap:8px 22px}
+.foot-links a{color:var(--ink-soft);font-weight:500}
+.foot-note{max-width:52ch;line-height:1.6}
+.foot-note strong{color:var(--ink-soft);font-weight:700}
+
+/* ============================ SPATIAL DRAWER ============================ */
+.sp-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:8px 12px;border-bottom:1px solid var(--line-strong);background:linear-gradient(var(--tb-top),var(--tb-bot))}
+.sp-hint{font-family:"JetBrains Mono",monospace;font-size:.72rem;color:var(--muted)}
+.sp-actions{display:flex;gap:6px}
+.sp-btn{font-family:"Hanken Grotesk",sans-serif;font-size:.8rem;font-weight:600;padding:5px 11px;border-radius:7px;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-soft);cursor:pointer}
+.sp-btn:hover{border-color:var(--aqua);color:var(--aqua-ink)}
+.sp-canvas{position:relative;height:300px;overflow:hidden;background-color:var(--surface);
+  background-image:radial-gradient(var(--line) 1.3px,transparent 1.3px);
+  background-size:96px 96px;background-position:12px 12px;touch-action:none}
+.sp-icon{position:absolute;left:0;top:0;width:72px;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 3px;border-radius:9px;cursor:grab;text-align:center}
+.sp-icon .gl{font-size:30px;line-height:1;filter:drop-shadow(0 1px 1px rgba(0,0,0,.22))}
+.sp-icon .lb{font-size:.72rem;line-height:1.2;color:var(--ink-soft);font-weight:500;max-width:72px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sp-icon.sel{background:var(--sel)}
+.sp-icon.sel .lb{color:var(--ink)}
+.sp-icon.drag{cursor:grabbing;z-index:5}
+.sp-icon.anim{transition:left .34s cubic-bezier(.2,.7,.2,1),top .34s cubic-bezier(.2,.7,.2,1)}
+
+/* ============================ MACHROME DEMO ============================ */
+.chrome-demo{max-width:560px;overflow:hidden;font-size:.9rem}
+.chrome-demo .cd-titlebar{display:flex;align-items:center;gap:6px;padding:0 8px;height:22px;position:relative}
+.chrome-demo .cd-tl{display:flex;gap:8px;flex:0 0 auto}
+.chrome-demo .cd-tl i{width:12px;height:12px;border-radius:50%;display:block;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.14)}
+.chrome-demo .cd-plat{display:none;align-items:center;gap:5px;flex:0 0 auto}
+.chrome-demo .cd-plat-close{width:13px;height:11px;flex:0 0 auto}
+.chrome-demo .cd-plat-right i{width:13px;height:11px;display:block}
+.chrome-demo .cd-title{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.chrome-demo .cd-titletext{font-size:.8rem;font-weight:600;letter-spacing:.01em}
+.cd-table{width:100%;border-collapse:separate;border-spacing:0}
+.cd-table th{text-align:left;font-weight:600;padding:4px 11px;font-size:.78rem;white-space:nowrap}
+.cd-table td{padding:4px 11px;white-space:nowrap}
+.cd-table td.num{text-align:right;font-variant-numeric:tabular-nums}
+.cd-statusbar{padding:4px 11px;font-size:.72rem}
+.cd-era{margin-top:14px;font-family:"JetBrains Mono",monospace;font-size:.76rem;color:var(--muted);max-width:64ch;line-height:1.5}
+.cd-era b{color:var(--ink-soft);font-weight:600}
+.cd-era .k{color:var(--aqua-ink)}
+
+/* ---- System · theme-aware, matches the page ---- */
+.chrome-demo[data-chrome="system"]{background:var(--surface);border:1px solid var(--line-strong);border-radius:12px;box-shadow:var(--shadow)}
+.chrome-demo[data-chrome="system"] .cd-titlebar{background:linear-gradient(var(--tb-top),var(--tb-bot));border-bottom:1px solid var(--line-strong)}
+.chrome-demo[data-chrome="system"] .cd-tl i:nth-child(1){background:var(--tl-red)}
+.chrome-demo[data-chrome="system"] .cd-tl i:nth-child(2){background:var(--tl-yellow)}
+.chrome-demo[data-chrome="system"] .cd-tl i:nth-child(3){background:var(--tl-green)}
+.chrome-demo[data-chrome="system"] .cd-titletext{color:var(--ink-soft)}
+.chrome-demo[data-chrome="system"] .cd-table th{background:linear-gradient(var(--tb-top),var(--tb-bot));border-bottom:1px solid var(--line-strong);color:var(--ink-soft)}
+.chrome-demo[data-chrome="system"] .cd-table td{border-bottom:1px solid var(--line);color:var(--ink-soft)}
+.chrome-demo[data-chrome="system"] .cd-table td.name{color:var(--ink)}
+.chrome-demo[data-chrome="system"] .cd-table tr.sel td{background:var(--sel);color:var(--ink)}
+.chrome-demo[data-chrome="system"] .cd-statusbar{background:linear-gradient(var(--tb-top),var(--tb-bot));border-top:1px solid var(--line-strong);color:var(--muted)}
+
+/* ---- Platinum · Mac OS 8–9 (matte grays, pinstripe title bar, chiselled boxes) ---- */
+.chrome-demo[data-chrome="platinum"]{background:#d4d4d4;border:1px solid #000;border-radius:0;color:#000;
+  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #7d7d7d, 3px 3px 0 rgba(0,0,0,.22);
+  font-family:"Charcoal","Helvetica Neue",Helvetica,Arial,sans-serif}
+.chrome-demo[data-chrome="platinum"] .cd-tl{display:none}
+.chrome-demo[data-chrome="platinum"] .cd-plat{display:flex}
+.chrome-demo[data-chrome="platinum"] .cd-plat-right{margin-left:auto}
+.chrome-demo[data-chrome="platinum"] .cd-titlebar{height:20px;border-bottom:1px solid #7d7d7d;
+  background:repeating-linear-gradient(to bottom,#ededed 0 1px,#c2c2c2 1px 2px);box-shadow:inset 0 1px 0 #fff}
+.chrome-demo[data-chrome="platinum"] .cd-plat-close,
+.chrome-demo[data-chrome="platinum"] .cd-plat-right i{background:#d4d4d4;border:1px solid #454545;
+  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #8a8a8a}
+.chrome-demo[data-chrome="platinum"] .cd-titletext{color:#000;font-weight:700;background:#d4d4d4;padding:0 10px}
+.chrome-demo[data-chrome="platinum"] .cd-body{margin:5px;background:#fff;border:1px solid #7d7d7d;
+  box-shadow:inset 1px 1px 0 #808080, inset -1px -1px 0 #fff}
+.chrome-demo[data-chrome="platinum"] .cd-table th{background:linear-gradient(#ececec,#cdcdcd);color:#000;
+  border-right:1px solid #a5a5a5;border-bottom:1px solid #7d7d7d;box-shadow:inset 1px 1px 0 #fff}
+.chrome-demo[data-chrome="platinum"] .cd-table td{border-bottom:1px solid #e2e2e2;color:#000}
+.chrome-demo[data-chrome="platinum"] .cd-table tr.sel td{background:#b6d6ff;color:#000}
+.chrome-demo[data-chrome="platinum"] .cd-statusbar{background:#d4d4d4;border-top:1px solid #7d7d7d;color:#333;box-shadow:inset 0 1px 0 #fff}
+
+/* ---- Aqua · Mac OS X 10.0–10.3 (glossy lights, pinstripe body, gel selection) ---- */
+.chrome-demo[data-chrome="aqua"]{background:#fff;border:1px solid #6f6f6f;border-radius:9px 9px 7px 7px;color:#1a1a1a;
+  box-shadow:0 14px 34px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.6);
+  font-family:"Lucida Grande","Hanken Grotesk",system-ui,sans-serif}
+.chrome-demo[data-chrome="aqua"] .cd-plat{display:none}
+.chrome-demo[data-chrome="aqua"] .cd-titlebar{height:23px;border-bottom:1px solid #9a9a9a;
+  background:linear-gradient(#efefef,#cdcdcd);box-shadow:inset 0 1px 0 #fff}
+.chrome-demo[data-chrome="aqua"] .cd-tl i{box-shadow:inset 0 1px 1px rgba(255,255,255,.7), inset 0 -1px 1px rgba(0,0,0,.18)}
+.chrome-demo[data-chrome="aqua"] .cd-tl i:nth-child(1){background:radial-gradient(circle at 50% 28%,#ff9a94,#f0554d)}
+.chrome-demo[data-chrome="aqua"] .cd-tl i:nth-child(2){background:radial-gradient(circle at 50% 28%,#ffe08a,#efb02a)}
+.chrome-demo[data-chrome="aqua"] .cd-tl i:nth-child(3){background:radial-gradient(circle at 50% 28%,#a2e389,#37ac37)}
+.chrome-demo[data-chrome="aqua"] .cd-titletext{color:#2b2b2b;font-weight:500;text-shadow:0 1px 0 rgba(255,255,255,.85)}
+.chrome-demo[data-chrome="aqua"] .cd-body{background:repeating-linear-gradient(to bottom,#ffffff 0 2px,#eef3fb 2px 4px)}
+.chrome-demo[data-chrome="aqua"] .cd-table th{background:linear-gradient(#fbfbfd,#dbdbe1);color:#333;
+  border-right:1px solid #c4c4ca;border-bottom:1px solid #a7a7ad;box-shadow:inset 0 1px 0 #fff}
+.chrome-demo[data-chrome="aqua"] .cd-table td{border-bottom:1px solid rgba(0,0,0,.06)}
+.chrome-demo[data-chrome="aqua"] .cd-table td.name{color:#111}
+.chrome-demo[data-chrome="aqua"] .cd-table tr.sel td{background:linear-gradient(#4a90f2,#2b6fe0);color:#fff;
+  border-bottom-color:#2b6fe0;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+.chrome-demo[data-chrome="aqua"] .cd-statusbar{background:linear-gradient(#f2f2f2,#dcdcdc);border-top:1px solid #b4b4b4;color:#555;box-shadow:inset 0 1px 0 #fff}
+
+/* ============================ MOTION ============================ */
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<button class="themer" id="themer" aria-label="Toggle light or dark theme" title="Toggle theme">
+  <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.6M12 18.8v2.6M2.6 12h2.6M18.8 12h2.6M5.4 5.4l1.9 1.9M16.7 16.7l1.9 1.9M18.6 5.4l-1.9 1.9M7.3 16.7l-1.9 1.9"/></svg>
+  <svg class="moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+</button>
+
+<!-- ============================ HERO ============================ -->
+<header class="hero wrap">
+  <span class="eyebrow">A SwiftUI standard library for the affordances Apple forgot</span>
+  <h1 class="wordmark">Mac<span class="assed">Assed</span></h1>
+  <p class="tagline">Putting the Mac back in SwiftUI.</p>
+  <p class="deck">MacAssed is an attempt to recover some of the functionality that modern minimalist interfaces have misplaced. <em>Welcome to the Lost&nbsp;&amp;&nbsp;Found.</em></p>
+
+  <blockquote class="quote reveal">
+    <p>“You can still do this in Mac-assed Mac apps. But in apps like TestFlight you can’t.”</p>
+    <cite>— John Gruber, Daring Fireball, on TestFlight’s un-sortable build list · Aug 2026</cite>
+  </blockquote>
+
+  <!-- ===== LIVE DEMO ===== -->
+  <div class="demo reveal">
+    <div class="demo-head">
+      <div>
+        <h2>The same list, two ways.</h2>
+        <p>Flip the switch. Same data, same SwiftUI — one has its affordances, one doesn’t.</p>
+      </div>
+      <div class="seg" role="group" aria-label="Interface mode">
+        <button id="mAust" aria-pressed="false">Austere SwiftUI</button>
+        <button id="mMac" aria-pressed="true">Mac-assed</button>
+      </div>
+    </div>
+
+    <div class="win" id="win" data-mode="mac">
+      <div class="titlebar"><span class="lights"><i></i><i></i><i></i></span><span class="name">Downloads</span></div>
+      <div class="tablewrap">
+        <table class="finder" id="finder" tabindex="0" aria-label="File list demo">
+          <thead>
+            <tr>
+              <th data-key="name" aria-sort="none"><button>Name <span class="tri"></span></button></th>
+              <th data-key="kind" aria-sort="none"><button>Kind <span class="tri"></span></button></th>
+              <th data-key="size" class="num" aria-sort="none"><button>Size <span class="tri"></span></button></th>
+              <th data-key="modified" class="num" aria-sort="none"><button>Date Modified <span class="tri"></span></button></th>
+            </tr>
+          </thead>
+          <tbody id="rows"><tr><td colspan="4" style="padding:16px;color:var(--muted)">Loading…</td></tr></tbody>
+        </table>
+      </div>
+      <div class="statusbar">
+        <span id="count">10 items</span>
+        <span class="sbhint" id="sbhint">click a header to sort · ⇧-click a range · type to jump</span>
+      </div>
+    </div>
+    <p class="demo-note" id="demoNote"><b>Sorted by Name,</b> “Photo 2.png” sits before “Photo 10.png” — the way the Finder does it, and the way a naïve lexicographic sort doesn’t. That’s <code style="font-family:'JetBrains Mono',monospace;font-size:.82em;color:var(--aqua-ink)">MAFinderComparator</code>, and it’s the default.</p>
+  </div>
+</header>
+
+<!-- ============================ THE PROBLEM / BEFORE-AFTER ============================ -->
+<section class="wrap" aria-label="Before and after">
+  <div class="shead prose">
+    <h2>Batteries included. You opt <em style="font-style:normal;color:var(--aqua-ink)">out</em>, not in.</h2>
+    <p class="sub">The distance between an austere list and a mac-assed one is one type name and one autosave string. Everything above — sort, reverse, ⇧/⌘ multi-select, type-select, keyboard nav — is on by default.</p>
+  </div>
+  <div class="compare">
+    <div class="codecard before">
+      <header><span class="dot"></span> Before — plain SwiftUI</header>
+<pre><code><span class="t">List</span>(files, selection: $selection) <span class="m">{</span> file <span class="m">in</span>
+    <span class="t">Text</span>(file.name)
+<span class="m">}</span>
+<span class="c">// austere. nothing sorts. nothing</span>
+<span class="c">// remembers. one thing selects.</span></code></pre>
+    </div>
+    <div class="codecard after">
+      <header><span class="dot"></span> After — MacAssed</header>
+<pre><code><span class="t">MATable</span>(files, selection: $selection) <span class="m">{</span>
+    <span class="t">MAColumn</span>(<span class="s">"Name"</span>, value: \.name)
+    <span class="t">MAColumn</span>(<span class="s">"Size"</span>, value: \.size,
+             align: .trailing)
+<span class="m">}</span>
+.<span class="t">columnAutosave</span>(<span class="s">"Files"</span>)  <span class="c">// remembered</span></code></pre>
+    </div>
+  </div>
+</section>
+
+<hr class="rule wrap" style="max-width:1000px">
+
+<!-- ============================ LOST & FOUND ============================ -->
+<section class="wrap">
+  <div class="shead">
+    <span class="eyebrow">/ Lost&nbsp;&amp;&nbsp;Found</span>
+    <h2 style="margin-top:14px">The things that somehow got lost along the way.</h2>
+    <p class="sub">A catalog of misplaced affordances. Some were genuinely thrown out and must be rebuilt. A surprising amount is still in the building — one modifier from working.</p>
+  </div>
+
+  <div class="legend">
+    <span><span class="pill lost"><span class="g">◎</span> From the depths</span> genuinely gone — SwiftUI offers no path.</span>
+    <span><span class="pill kick"><span class="g">✦</span> Needs a Swift kick</span> present but crippled; a nudge restores it.</span>
+  </div>
+
+  <div class="cat-group">
+    <h3>Sorting a list</h3>
+    <div class="cat-grid">
+      <div class="entry"><div class="top"><span class="en">Finder-style order</span><span class="pill lost">depths</span></div><div class="ed">“Photo 2” before “Photo 10”, case- &amp; diacritic-insensitive. SwiftUI sorts lexicographically.</div><div class="tool">MAFinderComparator</div></div>
+      <div class="entry"><div class="top"><span class="en">Reverse sort</span><span class="pill kick">kick</span></div><div class="ed">Click the header again to flip. Present in <code style="font-size:.82em">Table</code>; absent wherever a <code style="font-size:.82em">List</code> is used.</div><div class="tool">MATable · MAList</div></div>
+      <div class="entry"><div class="top"><span class="en">Secondary sort</span><span class="pill lost">depths</span></div><div class="ed">⌥-click a second header: “by Size, then Name.” No SwiftUI equivalent.</div><div class="tool">MASort</div></div>
+      <div class="entry"><div class="top"><span class="en">Persisted sort</span><span class="pill lost">depths</span></div><div class="ed">The list comes back sorted how you left it.</div><div class="tool">MAViewState</div></div>
+    </div>
+  </div>
+
+  <div class="cat-group">
+    <h3>Selecting things</h3>
+    <div class="cat-grid">
+      <div class="entry"><div class="top"><span class="en">⇧-click range</span><span class="pill lost">depths</span></div><div class="ed">Extend a contiguous range from an anchor. Works in <code style="font-size:.82em">Table</code> on macOS, nowhere else.</div><div class="tool">MASelection</div></div>
+      <div class="entry"><div class="top"><span class="en">⌘-click discontiguous</span><span class="pill lost">depths</span></div><div class="ed">Pick row 2, 5, and 9 — leave the rest alone.</div><div class="tool">MASelection</div></div>
+      <div class="entry"><div class="top"><span class="en">Marquee select</span><span class="pill lost">depths</span></div><div class="ed">Drag a rubber-band rectangle across empty space.</div><div class="tool">MASelection.marquee</div></div>
+      <div class="entry"><div class="top"><span class="en">Type-select</span><span class="pill lost">depths</span></div><div class="ed">Type “wed” to jump to Wednesday. AppKit did this for free for 25 years.</div><div class="tool">.maTypeSelect</div></div>
+      <div class="entry"><div class="top"><span class="en">Invert selection</span><span class="pill lost">depths</span></div><div class="ed">A Finder/Photoshop staple. Nowhere in SwiftUI.</div><div class="tool">MASelection.invert</div></div>
+      <div class="entry"><div class="top"><span class="en">Select all</span><span class="pill kick">kick</span></div><div class="ed">No ⌘A wired by default; no menu item.</div><div class="tool">MACommands</div></div>
+    </div>
+  </div>
+
+  <div class="cat-group">
+    <h3>Columns &amp; keyboard</h3>
+    <div class="cat-grid">
+      <div class="entry"><div class="top"><span class="en">Size to fit</span><span class="pill lost">depths</span></div><div class="ed">Double-click a divider to fit the widest cell; ⌥ to fit all.</div><div class="tool">MAColumnLayout</div></div>
+      <div class="entry"><div class="top"><span class="en">Column autosave</span><span class="pill lost">depths</span></div><div class="ed">Widths + order + visibility, remembered under a name, forever. AppKit’s <code style="font-size:.82em">autosaveName</code>, gone.</div><div class="tool">MAViewState</div></div>
+      <div class="entry"><div class="top"><span class="en">Show / hide columns</span><span class="pill kick">kick</span></div><div class="ed">Right-click the header, check a column off. Partial in <code style="font-size:.82em">Table</code>.</div><div class="tool">MAColumnLayout</div></div>
+      <div class="entry"><div class="top"><span class="en">Arrow-key nav</span><span class="pill lost">depths</span></div><div class="ed">↑ ↓ with ⇧ to extend, Home/End/Page to the ends.</div><div class="tool">MASelection.move</div></div>
+    </div>
+  </div>
+
+  <div class="cat-group">
+    <h3>Menus, manipulation &amp; windows</h3>
+    <div class="cat-grid">
+      <div class="entry"><div class="top"><span class="en">Selection-aware menu</span><span class="pill kick">kick</span></div><div class="ed"><code style="font-size:.82em">.contextMenu</code> forgets the selection. This one says “Delete 3 Items.”</div><div class="tool">MAContextMenu</div></div>
+      <div class="entry"><div class="top"><span class="en">Quick Look</span><span class="pill kick">kick</span></div><div class="ed">Space to preview the selection, ←/→ to walk it. Exists, but unbound.</div><div class="tool">.maQuickLook</div></div>
+      <div class="entry"><div class="top"><span class="en">Copy as TSV</span><span class="pill lost">depths</span></div><div class="ed">Select rows, ⌘C, paste into Numbers intact. Today you get nothing.</div><div class="tool">.maCopyAsTSV</div></div>
+      <div class="entry"><div class="top"><span class="en">⌘F Find bar</span><span class="pill kick">kick</span></div><div class="ed">The slide-down, live-filtering bar. <code style="font-size:.82em">.searchable</code> is a field, not this.</div><div class="tool">.maFindBar</div></div>
+      <div class="entry"><div class="top"><span class="en">Customizable toolbar</span><span class="pill lost">depths</span></div><div class="ed">The “Customize Toolbar…” sheet, drag items in and out.</div><div class="tool">.maCustomizableToolbar</div></div>
+      <div class="entry"><div class="top"><span class="en">Spring-loaded folders</span><span class="pill lost">depths</span></div><div class="ed">Hover a folder mid-drag and it opens. Peak Mac.</div><div class="tool">MADrag</div></div>
+    </div>
+  </div>
+
+  <p class="catalog-more">This is a curated slice. The full drawer — 16 sections, from disclosure triangles to proxy icons to token fields — is in <a href="https://github.com/kimslawson/mac-assed/blob/main/docs/Lost-and-Found.md">the catalog</a>.</p>
+</section>
+
+<hr class="rule wrap" style="max-width:1000px">
+
+<!-- ============================ SPATIAL DRAWER ============================ -->
+<section class="wrap" id="spatial">
+  <div class="shead">
+    <span class="eyebrow">/ Lost &amp; Found · the deepest cut</span>
+    <h2 style="margin-top:14px">Spatial memory — put it there, it stays there.</h2>
+    <p class="sub">The classic Finder was <em style="font-style:normal;color:var(--aqua-ink)">spatial</em>: one window per folder, each reopening where you left it, every icon exactly where you put it. You navigated by muscle memory. John Siracusa has argued the case for decades. Drag these icons around — then reload the page and find them where you left them.</p>
+  </div>
+
+  <div class="win" style="margin-top:8px">
+    <div class="titlebar"><span class="lights"><i></i><i></i><i></i></span><span class="name">Projects</span></div>
+    <div class="sp-toolbar">
+      <span class="sp-hint" id="spHint">drag an icon anywhere — it remembers</span>
+      <span class="sp-actions">
+        <button class="sp-btn" id="spClean">Clean Up</button>
+        <button class="sp-btn" id="spArrange">Arrange by Name</button>
+        <button class="sp-btn" id="spReset">Reset Layout</button>
+      </span>
+    </div>
+    <div class="sp-canvas" id="spCanvas" aria-label="Spatial icon view — drag to reposition"></div>
+  </div>
+  <p class="demo-note"><b>Clean Up</b> snaps to the grid without reordering; <b>Arrange by Name</b> reflows a sorted grid; <b>Reset Layout</b> undoes the arrange, because a hand-placed layout is precious. Icon positions are content-relative, so they’re <b>display-independent</b> — they survive a monitor change untouched; only <i>window</i> placement carries the multi-display asterisk. In MacAssed this is <code style="font-family:'JetBrains Mono',monospace;font-size:.82em;color:var(--aqua-ink)">MASpatialView</code> — opt-in, because it’s native by default, nostalgic by choice.</p>
+</section>
+
+<hr class="rule wrap" style="max-width:1000px">
+
+<!-- ============================ MACHROME ============================ -->
+<section class="wrap" id="chrome">
+  <div class="demo-head">
+    <div>
+      <span class="eyebrow">/ §15 · The look</span>
+      <h2 style="font-size:clamp(1.6rem,3.4vw,2.2rem);letter-spacing:-.02em;margin-top:12px">Native by default. Nostalgic by choice.</h2>
+      <p style="color:var(--muted);margin-top:8px;max-width:58ch">Behavior everywhere else stays modern. <code style="font-family:'JetBrains Mono',monospace;font-size:.85em;color:var(--aqua-ink)">MAChrome</code> is the one opt-in knob — faithful period skins for people who want them. Same window, same affordances; only the paint changes.</p>
+    </div>
+    <div class="seg" role="group" aria-label="MAChrome skin">
+      <button id="chSystem" aria-pressed="true">System</button>
+      <button id="chPlatinum" aria-pressed="false">Platinum</button>
+      <button id="chAqua" aria-pressed="false">Aqua</button>
+    </div>
+  </div>
+
+  <div class="chrome-demo" id="chromeWin" data-chrome="system">
+    <div class="cd-titlebar">
+      <span class="cd-tl"><i></i><i></i><i></i></span>
+      <span class="cd-plat cd-plat-close"></span>
+      <span class="cd-plat cd-plat-right"><i></i><i></i></span>
+      <span class="cd-title"><span class="cd-titletext">Documents</span></span>
+    </div>
+    <div class="cd-body">
+      <div class="tablewrap">
+        <table class="cd-table">
+          <thead><tr><th>Name</th><th>Kind</th><th class="num">Size</th><th class="num">Modified</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Read Me</td><td>SimpleText</td><td class="num">4 KB</td><td class="num">Mar 12 1999</td></tr>
+            <tr><td class="name">System Folder</td><td>Folder</td><td class="num">—</td><td class="num">Jan 1 2000</td></tr>
+            <tr class="sel"><td class="name">Sunset.pict</td><td>Picture</td><td class="num">128 KB</td><td class="num">Aug 24 1998</td></tr>
+            <tr><td class="name">Résumé</td><td>Document</td><td class="num">22 KB</td><td class="num">Sep 3 2001</td></tr>
+            <tr><td class="name">Backup.img</td><td>Disk Image</td><td class="num">640 KB</td><td class="num">Dec 31 1999</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="cd-statusbar" id="cdStatus">5 items · System appearance</div>
+  </div>
+  <p class="cd-era" id="cdEra"><b>System · today.</b> <span class="k">MATable(…).maChrome(.system)</span> — the default; follows the OS and this page’s theme.</p>
+</section>
+
+<hr class="rule wrap" style="max-width:1000px">
+
+<!-- ============================ TOOLS ============================ -->
+<section class="wrap">
+  <div class="shead">
+    <span class="eyebrow">/ Tools</span>
+    <h2 style="margin-top:14px">Things MacAssed gives you to put them back.</h2>
+    <p class="sub">The behavior lives in a UI-free core you can test on Linux; the SwiftUI views are a thin layer on top. And the whole thing carries one coherent identity — the <code style="font-family:'JetBrains Mono',monospace;font-size:.85em;color:var(--aqua-ink)">MA</code> prefix, revived on purpose.</p>
+  </div>
+  <div class="tools">
+    <div class="tool-row"><span class="nm">MATable</span><span class="ds">the flagship — sortable, multi-select, self-persisting</span></div>
+    <div class="tool-row"><span class="nm">MAList</span><span class="ds">the one-column sibling; the right call on iPhone</span></div>
+    <div class="tool-row"><span class="nm">MASort</span><span class="ds">the primary → secondary sort stack</span></div>
+    <div class="tool-row"><span class="nm">MASortDescriptor</span><span class="ds">one persistable sort level (yes, after NSSortDescriptor)</span></div>
+    <div class="tool-row"><span class="nm">MAFinderComparator</span><span class="ds">numeric-aware ordering that sorts like a Mac</span></div>
+    <div class="tool-row"><span class="nm">MASelection</span><span class="ds">the ⇧/⌘/marquee/arrow selection grammar, as a model</span></div>
+    <div class="tool-row"><span class="nm">MAColumnLayout</span><span class="ds">order, widths, visibility — Codable, reconcilable</span></div>
+    <div class="tool-row"><span class="nm">MAViewState</span><span class="ds">one autosave name; the window comes back</span></div>
+    <div class="tool-row"><span class="nm">MACommands</span><span class="ds">Sort By ▸, Select All, Invert — the menus SwiftUI skips</span></div>
+    <div class="tool-row"><span class="nm">MAChrome</span><span class="ds">opt-in Platinum / Aqua skins, never kitsch</span></div>
+    <div class="tool-row soon"><span class="nm">MAOutline</span><span class="ds">expand-all, persisted disclosure</span></div>
+    <div class="tool-row soon"><span class="nm">MAInspector</span><span class="ds">Get Info, multi-value editing</span></div>
+  </div>
+</section>
+
+<!-- ============================ THE NAME ============================ -->
+<section class="wrap">
+  <div class="aside reveal">
+    <h3>On the name — and the <code>MA</code> prefix</h3>
+    <p>A <em style="font-style:normal;font-weight:600;color:var(--ink)">Mac-assed Mac app</em> is a running term of art: an app that wholeheartedly embraces the platform instead of settling for a lowest-common-denominator port. Coined by Collin Donnell, popularized by Brent Simmons, used by Gruber since 2020. We put the link in the README, so the homage is self-sourcing.</p>
+    <p>And the prefix is a small joke that means it. Old Apple frameworks prefixed types — <code>NS</code>, <code>UI</code>, <code>CG</code>, <code>MK</code> — because Objective-C had no namespaces. Swift made that “unnecessary,” and the prefixes vanished in the <em style="font-style:normal;font-weight:600;color:var(--ink)">same cultural moment</em> the UI conventions did. So MacAssed brings the prefix back. The branding does the thing the library does — recovers a good convention dropped for looking old-fashioned. The module is <code>MacAssed</code>; the types are <code>MA…</code> — exactly <code>Foundation</code>’s relationship to its <code>NS…</code> types.</p>
+  </div>
+</section>
+
+<hr class="rule wrap" style="max-width:1000px">
+
+<!-- ============================ ROADMAP ============================ -->
+<section class="wrap">
+  <div class="shead prose">
+    <span class="eyebrow">/ Roadmap</span>
+    <h2 style="margin-top:14px">Versioned by usefulness, not completeness.</h2>
+    <p class="sub">Each milestone is shippable, and maps one-to-one onto a Lost&nbsp;&amp;&nbsp;Found section — so “what’s left” is always legible.</p>
+  </div>
+  <div class="road" style="margin-top:30px;max-width:64ch">
+    <div class="milestone"><div class="marker"><span class="ver">v0.1</span><span class="stem"></span></div><div class="body"><h4>The list problem, solved.</h4><p><span class="mono">MASort · MASelection · MATable · MAColumnLayout · autosave · MACommands · type-select.</span> The Gruber complaint, closed.</p></div></div>
+    <div class="milestone"><div class="marker"><span class="ver">v0.2</span><span class="stem"></span></div><div class="body"><h4>Manipulation.</h4><p><span class="mono">MAContextMenu · .maQuickLook · .maCopyAsTSV · .maFindBar · MAStatusBar.</span></p></div></div>
+    <div class="milestone"><div class="marker"><span class="ver">v0.3</span><span class="stem"></span></div><div class="body"><h4>Structure.</h4><p><span class="mono">MAOutline · MADrag</span> (insertion lines, spring-loading) <span class="mono">· MASidebar badges.</span></p></div></div>
+    <div class="milestone"><div class="marker"><span class="ver">v0.4</span><span class="stem"></span></div><div class="body"><h4>Windows.</h4><p><span class="mono">.maCustomizableToolbar · MAInspector · MAPanel</span> · proxy icons · dialog defaults.</p></div></div>
+    <div class="milestone"><div class="marker"><span class="ver">v0.5</span><span class="stem"></span></div><div class="body"><h4>Text &amp; undo.</h4><p><span class="mono">MATokenField · MAComboBox · MAField</span> editor bindings <span class="mono">· MAUndo</span> named actions.</p></div></div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="wrap">
+  <div class="foot-grid">
+    <div>
+      <p style="font-family:'Archivo';font-weight:900;font-size:1.3rem;letter-spacing:-.02em;color:var(--ink)">Mac<span style="color:var(--aqua)">Assed</span></p>
+      <p class="foot-note" style="margin-top:8px"><strong>Design sketch · pre-alpha.</strong> A settled API shape with illustrative bodies. The plan is real; the <code style="font-size:.82em">MacAssedCore</code> behavior is described by tests. A renaissance has to start somewhere.</p>
+      <p class="foot-note" style="margin-top:12px;font-size:.82rem"><strong>Prior art:</strong> Paulo Andrade’s <a href="https://pfandrade.me/blog/swiftui-mac-assed-wwdc26-update/">field notes on building a Mac-assed app in SwiftUI</a> are this project’s problem statement — Gruber linked them; an Apple engineer wrote back.</p>
+    </div>
+    <div>
+      <p class="eyebrow" style="margin-bottom:12px">The drawers</p>
+      <div class="foot-links">
+        <a href="https://github.com/kimslawson/mac-assed">Repository</a>
+        <a href="https://github.com/kimslawson/mac-assed/blob/main/docs/Lost-and-Found.md">Lost &amp; Found</a>
+        <a href="https://github.com/kimslawson/mac-assed/blob/main/docs/Tools.md">Tools</a>
+        <a href="https://github.com/kimslawson/mac-assed/blob/main/docs/Examples.md">Examples</a>
+        <a href="https://github.com/kimslawson/mac-assed/blob/main/DESIGN.md">Design</a>
+      </div>
+      <p style="margin-top:18px;font-size:.8rem">Etymology, self-sourced: <a href="https://daringfireball.net/2026/08/apple_testflight_list_sort_order">daringfireball.net</a> · MIT licensed</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var root=document.documentElement;
+  root.classList.add("js");
+
+  /* ---------- theme ---------- */
+  var LS={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},
+          set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  var saved=LS.get("ma-theme");
+  if(saved==="dark"||saved==="light") root.setAttribute("data-theme",saved);
+  document.getElementById("themer").addEventListener("click",function(){
+    var cur=root.getAttribute("data-theme");
+    if(!cur){ // stamp opposite of what the OS is showing
+      cur=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+    }
+    var next=cur==="dark"?"light":"dark";
+    root.setAttribute("data-theme",next); LS.set("ma-theme",next);
+  });
+
+  /* ---------- demo data ---------- */
+  var DAY=86400000, now=Date.now();
+  var DATA=[
+    {name:"Photo 2.png",           kind:"PNG image",     size:2415000,   modified:now-2*DAY},
+    {name:"Photo 10.png",          kind:"PNG image",     size:5110000,   modified:now-1*DAY},
+    {name:"Photo 1.png",           kind:"PNG image",     size:903000,    modified:now-9*DAY},
+    {name:"Budget v12.numbers",    kind:"Numbers",       size:48200,     modified:now-4*DAY},
+    {name:"Budget v2.numbers",     kind:"Numbers",       size:44100,     modified:now-40*DAY},
+    {name:"TestFlight.app",        kind:"Application",    size:41000000,  modified:now-16*DAY},
+    {name:"Daring Fireball.webloc",kind:"Bookmark",      size:1200,      modified:now-3*DAY},
+    {name:"System 7.dmg",          kind:"Disk Image",    size:320000000, modified:now-365*DAY},
+    {name:"Chicago.ttf",           kind:"Font",          size:60400,     modified:now-1200*DAY},
+    {name:"README.md",             kind:"Markdown",      size:8400,      modified:now-6*DAY}
+  ];
+  DATA.forEach(function(r,i){r.id=i;r._i=i;});
+
+  var state={mode:"mac",sortKey:null,sortDir:1,selected:{},anchor:null};
+  var savedMode=LS.get("ma-mode"); if(savedMode==="aust"||savedMode==="mac") state.mode=savedMode;
+
+  var win=document.getElementById("win"),
+      tbody=document.getElementById("rows"),
+      finder=document.getElementById("finder"),
+      count=document.getElementById("count"),
+      demoNote=document.getElementById("demoNote"),
+      sbhint=document.getElementById("sbhint"),
+      heads=[].slice.call(finder.querySelectorAll("thead th"));
+
+  function fmtSize(b){
+    if(b>=1e9)return (b/1e9).toFixed(1)+" GB";
+    if(b>=1e6)return (b/1e6).toFixed(1)+" MB";
+    if(b>=1e3)return Math.round(b/1e3)+" KB";
+    return b+" B";
+  }
+  function fmtDate(t){
+    var d=Math.round((now-t)/DAY);
+    if(d<=0)return "Today"; if(d===1)return "Yesterday";
+    if(d<30)return d+" days ago";
+    var dt=new Date(t);
+    return dt.toLocaleDateString(undefined,{month:"short",day:"numeric",year:dt.getFullYear()===new Date().getFullYear()?undefined:"numeric"});
+  }
+  function collator(){return new Intl.Collator(undefined,{numeric:true,sensitivity:"base"});}
+
+  function visibleRows(){
+    var rows=DATA.slice();
+    if(state.mode==="mac"&&state.sortKey){
+      var k=state.sortKey,dir=state.sortDir,col=collator();
+      rows.sort(function(a,b){
+        var r;
+        if(k==="name"||k==="kind")r=col.compare(a[k],b[k]);
+        else r=a[k]-b[k];
+        if(r===0)r=a._i-b._i;
+        return r*dir;
+      });
+    }
+    return rows;
+  }
+
+  function render(){
+    win.setAttribute("data-mode",state.mode);
+    // headers
+    heads.forEach(function(th){
+      var k=th.getAttribute("data-key"),tri=th.querySelector(".tri");
+      if(state.mode==="mac"&&state.sortKey===k){
+        th.setAttribute("aria-sort",state.sortDir===1?"ascending":"descending");
+        tri.textContent=state.sortDir===1?"▲":"▼";
+      }else{th.setAttribute("aria-sort","none");tri.textContent="";}
+    });
+    // rows
+    var rows=visibleRows(),html="";
+    rows.forEach(function(r){
+      var sel=state.selected[r.id]?" sel":"";
+      html+='<tr data-id="'+r.id+'" class="'+sel.trim()+'">'
+        +'<td class="name">'+esc(r.name)+'</td>'
+        +'<td class="kindcell">'+esc(r.kind)+'</td>'
+        +'<td class="num">'+fmtSize(r.size)+'</td>'
+        +'<td class="num">'+fmtDate(r.modified)+'</td></tr>';
+    });
+    tbody.innerHTML=html;
+    // status
+    var n=DATA.length,s=selCount();
+    count.textContent=n+" items"+(state.mode==="mac"&&s>0?", "+s+" selected":"");
+    sbhint.style.visibility=state.mode==="mac"?"visible":"hidden";
+    // note
+    var byName=state.mode==="mac"&&state.sortKey==="name"&&state.sortDir===1;
+    demoNote.style.opacity=byName?"1":".55";
+  }
+  function esc(s){return s.replace(/[&<>]/g,function(c){return c==="&"?"&amp;":c==="<"?"&lt;":"&gt;"})}
+  function selCount(){var n=0;for(var k in state.selected)if(state.selected[k])n++;return n}
+  function clearSel(){state.selected={};state.anchor=null;}
+
+  /* header sort */
+  heads.forEach(function(th){
+    th.querySelector("button").addEventListener("click",function(){
+      if(state.mode!=="mac")return;
+      var k=th.getAttribute("data-key");
+      if(state.sortKey===k)state.sortDir*=-1;
+      else{state.sortKey=k;state.sortDir=1;}
+      render();
+    });
+  });
+
+  /* row selection */
+  tbody.addEventListener("click",function(e){
+    var tr=e.target.closest("tr"); if(!tr)return;
+    var id=parseInt(tr.getAttribute("data-id"),10);
+    var rows=visibleRows(), order=rows.map(function(r){return r.id;});
+    if(state.mode!=="mac"){ // austere: single select only
+      clearSel(); state.selected[id]=true; state.anchor=id; render(); return;
+    }
+    if(e.shiftKey&&state.anchor!=null){
+      var a=order.indexOf(state.anchor),b=order.indexOf(id);
+      if(a>-1&&b>-1){var lo=Math.min(a,b),hi=Math.max(a,b);
+        if(!(e.metaKey||e.ctrlKey))state.selected={};
+        for(var i=lo;i<=hi;i++)state.selected[order[i]]=true;}
+    }else if(e.metaKey||e.ctrlKey){
+      state.selected[id]=!state.selected[id]; state.anchor=id;
+    }else{
+      clearSel(); state.selected[id]=true; state.anchor=id;
+    }
+    render();
+  });
+
+  /* type-select */
+  var buf="",timer=null;
+  finder.addEventListener("keydown",function(e){
+    if(state.mode!=="mac")return;
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    if(e.key==="Escape"){clearSel();render();return;}
+    if(e.key.length!==1||!/[a-z0-9 .]/i.test(e.key))return;
+    e.preventDefault();
+    buf+=e.key.toLowerCase();
+    clearTimeout(timer); timer=setTimeout(function(){buf="";},850);
+    var rows=visibleRows();
+    for(var i=0;i<rows.length;i++){
+      if(rows[i].name.toLowerCase().indexOf(buf)===0){
+        clearSel(); state.selected[rows[i].id]=true; state.anchor=rows[i].id; render();
+        var el=tbody.querySelector('tr[data-id="'+rows[i].id+'"]');
+        if(el&&el.scrollIntoView)el.scrollIntoView({block:"nearest"});
+        break;
+      }
+    }
+  });
+
+  /* mode switch */
+  var bAust=document.getElementById("mAust"),bMac=document.getElementById("mMac");
+  function setMode(m){
+    state.mode=m; LS.set("ma-mode",m);
+    if(m==="aust"){ // strip affordances
+      state.sortKey=null;
+      var keep=state.anchor; clearSel();
+      if(keep!=null)state.selected[keep]=true;
+    }
+    bAust.setAttribute("aria-pressed",m==="aust"?"true":"false");
+    bMac.setAttribute("aria-pressed",m==="mac"?"true":"false");
+    render();
+  }
+  bAust.addEventListener("click",function(){setMode("aust")});
+  bMac.addEventListener("click",function(){setMode("mac")});
+
+  setMode(state.mode);
+})();
+
+/* ---------- spatial drawer ---------- */
+(function(){
+  "use strict";
+  var canvas=document.getElementById("spCanvas"); if(!canvas)return;
+  var LS={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},
+          set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  var GRID={cell:96,inset:12,icon:72};
+  var ITEMS=[
+    {id:"projects", gl:"📁", lb:"Projects"},
+    {id:"archive",  gl:"📁", lb:"Archive"},
+    {id:"ideas",    gl:"📄", lb:"Ideas.rtf"},
+    {id:"sunset",   gl:"🖼️", lb:"Sunset.png"},
+    {id:"system7",  gl:"💾", lb:"System 7.dmg"},
+    {id:"downloads",gl:"📁", lb:"Downloads"}
+  ];
+  var INITIAL={projects:{x:24,y:18},archive:{x:196,y:150},ideas:{x:308,y:40},
+               sunset:{x:120,y:196},system7:{x:432,y:120},downloads:{x:150,y:60}};
+  function clone(o){return JSON.parse(JSON.stringify(o))}
+  var pos, snapshot=null, els={};
+  var saved=LS.get("ma-spatial");
+  if(saved){try{pos=JSON.parse(saved)}catch(e){pos=null}}
+  if(!pos)pos=clone(INITIAL);
+  // ensure every item has a position (in case of stale storage)
+  ITEMS.forEach(function(it){if(!pos[it.id])pos[it.id]=INITIAL[it.id]||{x:12,y:12}});
+
+  function cols(){return Math.max(1,Math.floor((canvas.clientWidth-GRID.inset)/GRID.cell))}
+  function slot(i){var c=cols();return {x:GRID.inset+(i%c)*GRID.cell, y:GRID.inset+Math.floor(i/c)*GRID.cell}}
+  function clamp(p){var w=canvas.clientWidth-GRID.icon,h=canvas.clientHeight-GRID.icon;
+    return {x:Math.max(0,Math.min(p.x,Math.max(0,w))), y:Math.max(0,Math.min(p.y,Math.max(0,h)))}}
+  function save(){LS.set("ma-spatial",JSON.stringify(pos))}
+  function hint(t){var h=document.getElementById("spHint"); if(h)h.textContent=t}
+
+  ITEMS.forEach(function(it){
+    var el=document.createElement("div");
+    el.className="sp-icon"; el.setAttribute("data-id",it.id); el.setAttribute("tabindex","0");
+    el.innerHTML='<span class="gl">'+it.gl+'</span><span class="lb">'+it.lb+'</span>';
+    canvas.appendChild(el); els[it.id]=el; drag(el,it.id);
+  });
+
+  function place(anim){
+    ITEMS.forEach(function(it){
+      var el=els[it.id], p=pos[it.id]||{x:0,y:0};
+      if(anim){el.classList.add("anim"); setTimeout((function(e){return function(){e.classList.remove("anim")}})(el),380);}
+      el.style.left=p.x+"px"; el.style.top=p.y+"px";
+    });
+  }
+  function select(id){Object.keys(els).forEach(function(k){els[k].classList.toggle("sel",k===id)})}
+
+  function drag(el,id){
+    var start=null,orig=null,moved=false;
+    el.addEventListener("pointerdown",function(e){
+      start={x:e.clientX,y:e.clientY}; orig={x:pos[id].x,y:pos[id].y}; moved=false;
+      try{el.setPointerCapture(e.pointerId)}catch(_){}
+      el.classList.add("drag"); el.classList.remove("anim"); select(id);
+    });
+    el.addEventListener("pointermove",function(e){
+      if(!start)return;
+      var dx=e.clientX-start.x, dy=e.clientY-start.y;
+      if(Math.abs(dx)+Math.abs(dy)>2)moved=true;
+      pos[id]=clamp({x:orig.x+dx,y:orig.y+dy});
+      el.style.left=pos[id].x+"px"; el.style.top=pos[id].y+"px";
+    });
+    function end(){ if(!start)return; start=null; el.classList.remove("drag");
+      if(moved){save(); hint("it remembers — reload the page and see");} }
+    el.addEventListener("pointerup",end);
+    el.addEventListener("pointercancel",end);
+  }
+
+  document.getElementById("spClean").addEventListener("click",function(){
+    Object.keys(pos).forEach(function(id){
+      var p=pos[id];
+      var c=Math.max(0,Math.round((p.x-GRID.inset)/GRID.cell));
+      var r=Math.max(0,Math.round((p.y-GRID.inset)/GRID.cell));
+      pos[id]=clamp({x:GRID.inset+c*GRID.cell, y:GRID.inset+r*GRID.cell});
+    });
+    save(); place(true); hint("snapped to the grid — arrangement kept");
+  });
+  document.getElementById("spArrange").addEventListener("click",function(){
+    snapshot=clone(pos);
+    ITEMS.slice().sort(function(a,b){return a.lb.localeCompare(b.lb,undefined,{numeric:true,sensitivity:"base"})})
+      .forEach(function(it,i){pos[it.id]=slot(i)});
+    save(); place(true); hint("arranged by name — Reset Layout to restore");
+  });
+  document.getElementById("spReset").addEventListener("click",function(){
+    pos = snapshot ? clone(snapshot) : clone(INITIAL); snapshot=null;
+    ITEMS.forEach(function(it){pos[it.id]=clamp(pos[it.id])});
+    save(); place(true); hint("back where you left them");
+  });
+
+  place(false);
+  var rt; window.addEventListener("resize",function(){
+    clearTimeout(rt); rt=setTimeout(function(){
+      ITEMS.forEach(function(it){pos[it.id]=clamp(pos[it.id])}); place(false);
+    },120);
+  });
+})();
+
+/* ---------- MAChrome skin switcher ---------- */
+(function(){
+  "use strict";
+  var win=document.getElementById("chromeWin"); if(!win)return;
+  var LS={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},
+          set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  var META={
+    system:{status:"5 items · System appearance",
+      era:'<b>System · today.</b> <span class="k">MATable(…).maChrome(.system)</span> — the default; follows the OS and this page’s theme.'},
+    platinum:{status:"5 items · Platinum appearance",
+      era:'<b>Platinum · Mac OS 8–9 (1997).</b> <span class="k">MATable(…).maChrome(.platinum)</span> — matte grays, a pinstriped title bar, chiselled boxes, light-blue selection.'},
+    aqua:{status:"5 items · Aqua appearance",
+      era:'<b>Aqua · Mac OS X 10.0–10.3 (2001).</b> <span class="k">MATable(…).maChrome(.aqua)</span> — glossy traffic lights, blue-white pinstripes, the lickable blue gel selection.'}
+  };
+  var btns={system:document.getElementById("chSystem"),
+            platinum:document.getElementById("chPlatinum"),
+            aqua:document.getElementById("chAqua")};
+  var era=document.getElementById("cdEra"), status=document.getElementById("cdStatus");
+  function set(sk){
+    if(!META[sk]) sk="system";
+    win.setAttribute("data-chrome",sk);
+    for(var k in btns) btns[k].setAttribute("aria-pressed", k===sk?"true":"false");
+    era.innerHTML=META[sk].era; status.textContent=META[sk].status;
+    LS.set("ma-chrome",sk);
+  }
+  Object.keys(btns).forEach(function(sk){ btns[sk].addEventListener("click",function(){set(sk)}); });
+  set(LS.get("ma-chrome") || "system");
+})();
+</script>
+</body>
+</html>
